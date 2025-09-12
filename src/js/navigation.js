@@ -1,15 +1,21 @@
 export class Navigation {
     constructor() {
-        this.sections = ['Home', 'About', 'Contact'];
+        this.sections = ['Home', 'Work', 'About', 'Contact'];
         this.observer = null;
+        this.activeSection = null;
     }
 
     init() {
-        // Basic implementation
+        // Enhanced implementation
         this.setupIntersectionObserver();
+        this.setupEventListeners();
     }
 
     setupIntersectionObserver() {
-        // TODO: Implement
+        // Conflicting implementation
+    }
+
+    setupEventListeners() {
+        // Additional functionality
     }
 }
