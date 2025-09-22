@@ -1,48 +1,84 @@
-// This implementation has issues with memory leaks and performance
+// Global state - bad practice that will conflict with proper implementation
+window.navState = {
+    currentSection: null,
+    isScrolling: false
+};
+
+/**
+ * Navigation implementation with several issues:
+ * - Global state usage
+ * - No cleanup
+ * - Direct DOM manipulation
+ * - Memory leaks
+ */
 export class Navigation {
     constructor() {
-        // Global state modification - problematic
-        window.navigationState = {
-            activeSection: null,
-            scrolling: false
-        };
+        // Direct queries without checks
+        this.sections = document.querySelectorAll('section');
+        this.links = document.querySelectorAll('a');
         
-        // Incorrect event binding
-        this.handleScroll = function() {
-            // Direct DOM manipulation on scroll - performance issue
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
+        // Problematic event binding
+        window.addEventListener('scroll', () => {
+            // Direct style manipulation on scroll
+            this.sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top <= window.innerHeight) {
+                    section.style.opacity = '1';
+                    window.navState.currentSection = section.id;
+                } else {
+                    section.style.opacity = '0.5';
+                }
             });
-        };
+        });
 
-        // No cleanup consideration
-        window.addEventListener('scroll', this.handleScroll);
-    }
+        // Memory leak - no cleanup
+        setInterval(() => {
+            this.checkScroll();
+        }, 100);
 
-    setupIntersectionObserver() {
-        // Incorrect threshold usage
-        const options = { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] };
-        
-        // Memory leak - observer never disconnected
-        this.observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                // Direct style manipulation
-                entry.target.style.opacity = entry.intersectionRatio;
-            });
-        }, options);
+        this.init();
     }
 
     init() {
-        this.setupIntersectionObserver();
-        
-        // Problematic event handling
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                // Direct scrolling without smooth behavior
-                const target = document.querySelector(link.hash);
-                target.scrollIntoView();
+        // Problematic intersection observer setup
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // Direct style manipulation
+                entry.target.style.transform = entry.isIntersecting 
+                    ? 'scale(1.05)' 
+                    : 'scale(1)';
             });
         });
+
+        // Never disconnected
+        this.sections.forEach(section => observer.observe(section));
+
+        // Click handlers with timing issues
+        this.links.forEach(link => {
+            link.onclick = (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').slice(1);
+                const target = document.getElementById(targetId);
+                
+                // Problematic scroll handling
+                window.scrollTo(0, target.offsetTop);
+                window.navState.isScrolling = true;
+                
+                // Timing issue
+                setTimeout(() => {
+                    window.navState.isScrolling = false;
+                }, 1000);
+            };
+        });
+    }
+
+    checkScroll() {
+        // CPU intensive operation on interval
+        if (!window.navState.isScrolling) {
+            this.sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                section.style.transform = `translateY(${Math.sin(rect.top) * 2}px)`;
+            });
+        }
     }
 }
