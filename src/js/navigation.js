@@ -1,8 +1,11 @@
 export class Navigation {
     constructor() {
+        this.nav = document.querySelector('.nav');
         this.links = document.querySelectorAll('.nav-link');
         this.sections = document.querySelectorAll('main section');
-        this.navHeight = document.querySelector('.nav').offsetHeight;
+        this.navToggle = document.getElementById('nav-toggle');
+        this.navList = document.getElementById('nav-list');
+        this.navHeight = this.nav.offsetHeight;
 
         this.bindEvents();
         this.handleScroll();
@@ -10,6 +13,7 @@ export class Navigation {
     }
 
     bindEvents() {
+        // Smooth scroll on link click
         this.links.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -22,8 +26,22 @@ export class Navigation {
                     top: targetPosition,
                     behavior: 'smooth'
                 });
+
+                // Close nav on mobile after click
+                if (this.navList.classList.contains('open')) {
+                    this.navToggle.classList.remove('active');
+                    this.navList.classList.remove('open');
+                }
             });
         });
+
+        // Hamburger menu toggle
+        if (this.navToggle) {
+            this.navToggle.addEventListener('click', () => {
+                this.navToggle.classList.toggle('active');
+                this.navList.classList.toggle('open');
+            });
+        }
     }
 
     handleScroll() {

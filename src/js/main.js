@@ -1,15 +1,14 @@
-import { Navigation } from './navigation.js';
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Navigation
-    new Navigation();
-
+    // Initialize Navigation (imported as module)
+    import('./navigation.js').then(({ Navigation }) => {
+        new Navigation();
+    });
     // Initialize Drag & Drop
     initDragDrop();
-
-    // Fetch and render blogs
+    // Fetch blogs
     fetchBlogs();
 });
+
 
 /* ------------------------------
    Drag & Drop Implementation
@@ -54,7 +53,6 @@ function initDragDrop() {
 --------------------------------*/
 async function fetchBlogs() {
     try {
-       
         const response = await fetch('https://frontend-blog-lyart.vercel.app/blogsData.json');
         const data = await response.json();
 
