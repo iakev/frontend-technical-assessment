@@ -62,3 +62,14 @@ body {
   height: 100px;
   font-weight: 600;
 }
+
+/* Visual feedback for drag & drop */
+.draggable-item.dragging {
+  opacity: 0.6;
+  background: lightblue;
+}
+
+.drop-zone.drop-over {
+  background: lightblue;
+  border-color: #bbbbbb;
+}
