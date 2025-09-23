@@ -20,50 +20,44 @@ body {
 
 /* Drag & Drop Section Styles */
 #drag-section {
-    background-color: var(--light-gray);
-    border-radius: 12px;
-    padding: 40px;
-    max-width: 600px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 500px;
     width: 100%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 #drag-section h2 {
     text-align: center;
-    margin: 0 0 30px 0;
-    color: var(--primary-color);
-    font-size: 24px;
+    margin: 0 0 25px 0;
+    color: #333;
+    font-size: 20px;
     font-weight: 600;
 }
 
 .drag-drop-container {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 25px;
 }
 
 /* Draggable Items */
 .draggable-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 .draggable-item {
     background-color: white;
-    border-radius: 8px;
-    padding: 16px 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 12px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     cursor: grab;
-    transition: transform 0.2s ease;
-}
-
-.draggable-item:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .draggable-item:active {
@@ -71,15 +65,15 @@ body {
 }
 
 .item-content {
-    font-size: 16px;
-    color: var(--primary-color);
-    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+    font-weight: 400;
 }
 
 .drag-handle {
-    color: var(--dark-gray);
-    font-size: 18px;
-    font-weight: bold;
+    color: #999;
+    font-size: 16px;
+    font-weight: normal;
     line-height: 1;
     cursor: grab;
     user-select: none;
@@ -92,33 +86,21 @@ body {
 /* Drop Zones */
 .drop-zones {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     justify-content: center;
 }
 
 .drop-zone {
-    border: 2px dashed var(--medium-gray);
-    border-radius: 8px;
-    padding: 40px 20px;
+    border: 2px dashed #d0d0d0;
+    border-radius: 6px;
+    padding: 30px 20px;
     text-align: center;
     background-color: white;
-    min-width: 150px;
-    transition: all 0.3s ease;
-}
-
-.drop-zone:hover {
-    border-color: var(--secondary-color);
-    background-color: #f8f9ff;
-}
-
-.drop-zone.drag-over {
-    border-color: var(--secondary-color);
-    background-color: #e8f4fd;
-    transform: scale(1.02);
+    min-width: 120px;
 }
 
 .drop-zone-label {
-    color: var(--dark-gray);
-    font-size: 16px;
-    font-weight: 500;
+    color: #999;
+    font-size: 14px;
+    font-weight: 400;
 }
