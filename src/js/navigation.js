@@ -19,17 +19,23 @@ export class Navigation {
         this.navToggle = document.querySelector('.nav-toggle');
         this.navList = document.querySelector('.nav-list');
         
-        // Fixed scroll event binding - removed problematic opacity changes
+        // Throttled scroll event for better performance
+        let scrollTimeout;
         window.addEventListener('scroll', () => {
-            // Track current section for navigation highlighting without visual changes
-            this.sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                if (rect.top >= 0 && rect.top <= window.innerHeight) {
-                    window.navState.currentSection = section.id;
-                    // Update active navigation link
-                    this.updateActiveNavLink(section.id);
-                }
-            });
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            scrollTimeout = setTimeout(() => {
+                // Track current section for navigation highlighting
+                this.sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top >= 0 && rect.top <= window.innerHeight) {
+                        window.navState.currentSection = section.id;
+                        // Update active navigation link
+                        this.updateActiveNavLink(section.id);
+                    }
+                });
+            }, 10); // Throttle to 10ms for smooth performance
         });
 
         // Removed problematic setInterval that was causing performance issues
@@ -68,14 +74,14 @@ export class Navigation {
                     // Immediately update active navigation link
                     this.updateActiveNavLink(targetId);
                     
-                    // Smooth scrolling to target section
-                    this.smoothScrollTo(target);
-                    window.navState.isScrolling = true;
+                    // Use native smooth scrolling for better performance
+                    const headerHeight = 64; // Account for fixed header height (4rem = 64px)
+                    const targetPosition = target.offsetTop - headerHeight;
                     
-                    // Reset scrolling state after animation completes
-                    setTimeout(() => {
-                        window.navState.isScrolling = false;
-                    }, 800);
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
                 }
             };
         });
@@ -130,33 +136,6 @@ export class Navigation {
         }
     }
 
-    smoothScrollTo(target) {
-        const headerHeight = 64; // Account for fixed header height (4rem = 64px)
-        const targetPosition = target.offsetTop - headerHeight;
-        const startPosition = window.pageYOffset;
-        const distance = targetPosition - startPosition;
-        const duration = 800; // Animation duration in milliseconds
-        let start = null;
-
-        // Animation function
-        function animation(currentTime) {
-            if (start === null) start = currentTime;
-            const timeElapsed = currentTime - start;
-            const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
-            window.scrollTo(0, run);
-            if (timeElapsed < duration) requestAnimationFrame(animation);
-        }
-
-        // Easing function for smooth animation
-        function easeInOutCubic(t, b, c, d) {
-            t /= d / 2;
-            if (t < 1) return c / 2 * t * t * t + b;
-            t -= 2;
-            return c / 2 * (t * t * t + 2) + b;
-        }
-
-        requestAnimationFrame(animation);
-    }
 
     checkScroll() {
         // Removed problematic sine wave animation that was causing shaking
