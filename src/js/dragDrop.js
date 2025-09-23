@@ -61,30 +61,22 @@ export class DragDrop {
         zone.addEventListener('drop', this._onDrop.bind(this));
       });
     }
-  
+
     _onDragStart(e, item) {
-      this.draggedItem = item;
-      item.classList.add('dragging');
-  
-      // cross-browser: set data so Firefox allows dragging
-      try { e.dataTransfer.setData('text/plain', item.dataset.id || ''); } catch (_) {}
-  
-      e.dataTransfer.effectAllowed = 'move';
-  
-      // Hide the original element visually but keep layout stable: use visibility hidden
-      // use requestAnimationFrame to ensure browser has started the drag
-      requestAnimationFrame(() => {
-        item.style.visibility = 'hidden';
-      });
-  
-      // Optionally set a custom drag image (improves visual consistency)
-      // create a small transparent image to avoid default ghost image jitter on some browsers
-      try {
-        const img = new Image();
-        img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-        e.dataTransfer.setDragImage(img, 0, 0);
-      } catch (_) {}
-    }
+        this.draggedItem = item;
+        item.classList.add('dragging');
+        // item.classList.add('is-dragging'); 
+      
+        try { e.dataTransfer.setData('text/plain', item.dataset.id || ''); } catch (_) {}
+      
+        // e.dataTransfer.effectAllowed = 'move';
+        try { 
+            e.dataTransfer.setData('text/plain', item.dataset.id || ''); 
+          } catch (_) {}
+        
+          e.dataTransfer.effectAllowed = 'move';
+      }
+      
   
     _onDragEnd(e, item) {
       // restore visibility and cleanup

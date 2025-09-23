@@ -58,6 +58,10 @@ main { padding: 28px 20px 80px; display:flex; flex-direction:column; gap:48px; a
 .section-title { text-align:center; font-size:18px; margin:12px 0 20px; color:#333; }
 
 /* Drag & drop container: card with inner layout */
+.dragging {
+    opacity: 0.5;
+}
+
 .draggable-item {
     display: flex;
     justify-content: space-between;
@@ -72,10 +76,25 @@ main { padding: 28px 20px 80px; display:flex; flex-direction:column; gap:48px; a
 }
 
 .draggable-item.dragging {
-    opacity: 0.6;
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background-color: #1f6a9a !important;
+    color: white;
+    opacity: 0.9;
+    transform: scale(1.02);
+    margin-bottom: 0 !important; 
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
 }
+
+.draggable-item.dragging .item-content {
+    color: white;
+}
+
+/* .draggable-item:last-child { margin-bottom: 0; } */
+.draggable-item:last-child:not(.dragging) {
+    margin-top: 0;
+  }
+
+.draggable-item .item-content { font-size:14px; color:#333; }
+
 
 .drop-zone.over {
     background: #f0f8ff;
@@ -99,30 +118,20 @@ main { padding: 28px 20px 80px; display:flex; flex-direction:column; gap:48px; a
     margin-bottom: 18px;
     background: linear-gradient(#fff, #fafafa);
 }
-/* .draggable-item {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding: 12px 14px;
-    border: 1px solid #eee;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    transition: transform 180ms ease, box-shadow 180ms ease;
-    background: #fff;
-} */
-.draggable-item:last-child { margin-bottom: 0; }
-.draggable-item .item-content { font-size:14px; color:#333; }
+
 .drag-handle { color: #bbb; font-size:18px; padding-left:8px; }
 
 /* dragging state */
 .is-dragging {
-    opacity: 0.95;
-    transform: scale(1.02);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    z-index: 1000;
-    position: relative;
+    /* opacity: 0.95; */
+    /* transform: scale(1.02); */
+    /* box-shadow: 0 8px 24px rgba(0,0,0,0.12); */
+    /* z-index: 1000;
+    position: relative; */
+    background-color: #ddd;
+    
 }
-.drag-hidden { opacity: 0; height:0; margin:0; padding:0; border:0; }
+/* .drag-hidden { opacity: 0; height:0; margin:0; padding:0; border:0; } */
 
 /* placeholder for visual space */
 .drag-placeholder {
@@ -157,15 +166,7 @@ main { padding: 28px 20px 80px; display:flex; flex-direction:column; gap:48px; a
     box-shadow: 0 8px 26px rgba(0,0,0,0.12);
 }
 
-
 .drop-zone-label { color: #9aa7ad; font-size:14px; }
-
-/* drop-over aesthetic
-.drop-zone.drop-over {
-    background-color: #f3fbff;
-    border-color: var(--accent);
-    transform: translateY(-4px);
-} */
 
 .drag-placeholder {
     background: rgba(0, 0, 0, 0.1);
@@ -173,11 +174,8 @@ main { padding: 28px 20px 80px; display:flex; flex-direction:column; gap:48px; a
     border-radius: 4px;
     margin: 4px 0;
     height: 40px; /* gets overridden dynamically */
-  }
-  .dragging {
-    opacity: 0.5;
-  }
-  
+}
+
 
 /* Touch clone */
 .touch-clone {
@@ -188,6 +186,7 @@ main { padding: 28px 20px 80px; display:flex; flex-direction:column; gap:48px; a
     box-shadow: 0 12px 30px rgba(0,0,0,0.15);
 }
 
+
 /* Blog list styles */
 .blog-list-container {
     background: #fff;
@@ -196,6 +195,18 @@ main { padding: 28px 20px 80px; display:flex; flex-direction:column; gap:48px; a
     border: 1px solid var(--card-border);
     box-shadow: 0 6px 22px var(--shadow);
 }
+
+/* Blog list styles */
+.blog-list-content {
+    /* background: #fff;
+    border-radius: 6px;
+     */
+    /* border: 1px solid var(--card-border); */
+    box-shadow: 0 6px 22px var(--shadow);
+    border: 1px solid #888;
+    padding: 8px;
+}
+
 .blog-controls {
     display:flex;
     gap:12px;
@@ -218,9 +229,11 @@ main { padding: 28px 20px 80px; display:flex; flex-direction:column; gap:48px; a
     gap:12px;
     align-items:flex-start;
     padding:12px;
-    border-top: 1px solid #f1f1f1;
+    border: 1px solid #b4b2b2;
+    border-radius: 4px;
+    margin-top: 6px;
 }
-.blog-item:first-child { border-top: none; }
+/* .blog-item:first-child { border-top: none; } */
 .blog-image {
     width:92px;
     height:64px;
@@ -237,13 +250,23 @@ main { padding: 28px 20px 80px; display:flex; flex-direction:column; gap:48px; a
 .tag {
     display:inline-block;
     padding:6px 8px;
-    border-radius: 16px;
-    background:#f4f7fb;
+    border-radius: 6px;
+    /* background:#f4f7fb; */
     border:1px solid #eef6ff;
     font-size:12px;
-    color:#2c6f9b;
+    /* color:#2c6f9b; */
+    color: #ffffff;
+    background: #1f6a9a;
     margin-right:6px;
+    margin-top: 4px;
 }
+
+.tag:hover {
+    background: #15597f;
+    border-color: #0e3e5d;
+    cursor: pointer;
+}
+
 
 /* small utilities */
 .hidden { display:none; }
@@ -263,9 +286,28 @@ main { padding: 28px 20px 80px; display:flex; flex-direction:column; gap:48px; a
     gap: 18px;
     margin-top: 6px;
 }
+
 .drop-zone {
-    flex: 1; /* ensures equal width, stretched like the screenshot */
+    flex: 1;
+    min-height: 78px;
+    border: 2px dashed #ddd;
+    border-radius: 6px;
+    display: flex;
+    /* flex-direction: column; 🔥 Make it a vertical stack */
+    /* align-items: stretch;    🔥 Items take full width */
+    justify-content: flex-start; /* 🔥 Start from top */
+    background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(250,250,250,0.8));
+    color: #9aa7ad;
+    font-size: 14px;
+    transition: background-color 160ms ease, border-color 160ms ease, transform 140ms ease, box-shadow 160ms ease;
+    padding: 16px; /* consistent spacing */
+    gap: 10px;     /* 🔥 uniform spacing between items */
 }
+
+/* keep the "Drop Here" label visible only when no items are inside */
+/* .drop-zone:has(.draggable-item) .drop-zone-label {
+    display: none;
+} */
 
 
 
