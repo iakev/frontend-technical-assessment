@@ -1,3 +1,4 @@
+Okay let me give you the instructions here that candidates will use
 # Frontend Technical Assessment
 
 ## Getting Started instructions
@@ -75,4 +76,3 @@ This is a 48-hour technical assessment focusing on three main components. Basic 
 - Feature completeness
 - Responsive design implementation
 - Documentation quality
- 
