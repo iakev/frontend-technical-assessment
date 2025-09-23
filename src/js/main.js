@@ -1,15 +1,12 @@
-import { DragDrop } from './dragDrop.js';
+import { DragDrop } from './DragDrop.js';
 import { BlogList } from './BlogList.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Drag & Drop
-    const dragDropContainer = document.querySelector('.drag-drop-container');
-    if (dragDropContainer) {
-        const dragDrop = new DragDrop();
-        dragDrop.init();
-    }
+    // Initialize the Drag and Drop functionality
+    const dragDrop = new DragDrop();
+    dragDrop.init();
 
-    // Initialize Blog List (partial)
+    // Initialize the Blog List component
     const blogListContainer = document.querySelector('.blog-list-container');
     if (blogListContainer) {
         const blogList = new BlogList(blogListContainer);

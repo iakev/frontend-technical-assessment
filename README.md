@@ -26,7 +26,7 @@ This is a 48-hour technical assessment focusing on three main components. Basic 
     - Complete the functionality of the second dropdown (in the middle of first dropdown and search box) that filters blogs by Writing, Gadgets, Startups as shown in the video.[Second Filter](https://drive.google.com/file/d/1PU_ezhq1s3onaMSJcOwRsoz8pdz4zC5f/view?usp=drive_link)
     - Complete the functionality of the keyword search functionality of the blogs via the title as also shown in the demo video. [Search](https://drive.google.com/file/d/1PU_ezhq1s3onaMSJcOwRsoz8pdz4zC5f/view?usp=drive_link)
 
-  - Ensure the entire section looks stylistically like the solution [General Overview](https://drive.google.com/file/d/1KwMSwv47rR01mc3tRzGUtmBCWo9Byvfp/view?usp=drive_link).
+  - Ensure the entire section looks stylistically like the solution [General Overview](htt ps://drive.google.com/file/d/1KwMSwv47rR01mc3tRzGUtmBCWo9Byvfp/view?usp=drive_link).
   - Squash your commits to one, resolve any merge conflicts to your main branch, and commit your changes remotely to `feature/drag-drop`.
 
 3. Checkout locally to `feature/navigation` branch.
