@@ -76,14 +76,14 @@ body {
 }
 
 .draggable-item.dragging {
-    background-color: white;
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
+    background-color: #4A90E2;
+    color: white;
+    border: 1px solid #4A90E2;
     z-index: 1000;
 }
 
 .draggable-item.dragging .item-content {
-    color: var(--text-color);
+    color: white;
 }
 
 .draggable-item.dragging .drag-handle {

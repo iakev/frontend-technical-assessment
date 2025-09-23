@@ -53,6 +53,8 @@ export class DragDrop {
                 // Remove drag-over class and add has-items class
                 zone.classList.remove('drag-over');
                 zone.classList.add('has-items');
+                // Remove dragging class from all items
+                this.items.forEach(item => item.classList.remove('dragging'));
                 // Unsafe DOM manipulation
                 if (window.dragState.currentItem) {
                     zone.innerHTML += window.dragState.currentItem.outerHTML;
