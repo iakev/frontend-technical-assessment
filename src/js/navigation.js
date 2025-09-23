@@ -57,21 +57,23 @@ export class Navigation {
         this.observer = observer;
         this.sections.forEach(section => observer.observe(section));
 
-        // Click handlers with timing issues
+        // Click handlers with smooth scrolling
         this.links.forEach(link => {
             link.onclick = (e) => {
                 e.preventDefault();
                 const targetId = link.getAttribute('href').slice(1);
                 const target = document.getElementById(targetId);
                 
-                // Problematic scroll handling
-                window.scrollTo(0, target.offsetTop);
-                window.navState.isScrolling = true;
-                
-                // Timing issue
-                setTimeout(() => {
-                    window.navState.isScrolling = false;
-                }, 1000);
+                if (target) {
+                    // Smooth scrolling to target section
+                    this.smoothScrollTo(target);
+                    window.navState.isScrolling = true;
+                    
+                    // Reset scrolling state after animation completes
+                    setTimeout(() => {
+                        window.navState.isScrolling = false;
+                    }, 800);
+                }
             };
         });
     }
@@ -123,6 +125,34 @@ export class Navigation {
             this.navList.classList.remove('active');
             this.navToggle.setAttribute('aria-expanded', 'false');
         }
+    }
+
+    smoothScrollTo(target) {
+        const headerHeight = 64; // Account for fixed header height (4rem = 64px)
+        const targetPosition = target.offsetTop - headerHeight;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        const duration = 800; // Animation duration in milliseconds
+        let start = null;
+
+        // Animation function
+        function animation(currentTime) {
+            if (start === null) start = currentTime;
+            const timeElapsed = currentTime - start;
+            const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+            window.scrollTo(0, run);
+            if (timeElapsed < duration) requestAnimationFrame(animation);
+        }
+
+        // Easing function for smooth animation
+        function easeInOutCubic(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t * t + b;
+            t -= 2;
+            return c / 2 * (t * t * t + 2) + b;
+        }
+
+        requestAnimationFrame(animation);
     }
 
     checkScroll() {
