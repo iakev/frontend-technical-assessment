@@ -73,22 +73,56 @@ export class BlogList {
     // TODO (candidate): implement sorting
     onSortChange(e) {
         const by = e.target.value;
-        // Implement sorting by: date, reading_time, category
-        // After sorting, reset page to 1 and call this.render()
+        if (!by) {
+            this.filteredItems = [...this.items];
+        } else {
+            this.filteredItems.sort((a, b) => {
+                switch (by) {
+                    case 'date':
+                        return new Date(b.published_date) - new Date(a.published_date);
+                    case 'reading_time':
+                        return parseInt(a.reading_time) - parseInt(b.reading_time);
+                    case 'category':
+                        return (a.category || '').localeCompare(b.category || '');
+                    default:
+                        return 0;
+                }
+            });
+        }
+        this.page = 1;
+        this.render();
     }
 
     // TODO (candidate): implement filtering
     onFilterChange(e) {
         const val = e.target.value; // Gadgets | Startups | Writing | ''
-        // Filter this.items by category or tags to create this.filteredItems
-        // After filtering, reset page to 1 and call this.render()
+        if (!val) {
+            this.filteredItems = [...this.items];
+        } else {
+            this.filteredItems = this.items.filter(item => {
+                return item.category === val || 
+                       (item.tags && item.tags.includes(val)) ||
+                       item.author === val;
+            });
+        }
+        this.page = 1;
+        this.render();
     }
 
     // TODO (candidate): implement search by title
     onSearchInput(e) {
         const q = (e.target.value || '').toLowerCase();
-        // Filter by title (and optionally content) using q
-        // After filtering, reset page to 1 and call this.render()
+        if (!q) {
+            this.filteredItems = [...this.items];
+        } else {
+            this.filteredItems = this.items.filter(item => {
+                return item.title.toLowerCase().includes(q) ||
+                       item.content.toLowerCase().includes(q) ||
+                       item.author.toLowerCase().includes(q);
+            });
+        }
+        this.page = 1;
+        this.render();
     }
 
     showLoading() {
