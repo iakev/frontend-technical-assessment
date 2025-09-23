@@ -9,6 +9,8 @@
     --text-color: #333;
     --text-muted: #999;
     --container-width: 40%;
+    --drag-color: #3498db;
+    --drag-bg-light: #E8F4FD;
 }
 
 body {
@@ -76,9 +78,9 @@ body {
 }
 
 .draggable-item.dragging {
-    background-color: #4A90E2;
+    background-color: var(--drag-color);
     color: white;
-    border: 1px solid #4A90E2;
+    border: 1px solid var(--drag-color);
     z-index: 1000;
 }
 
@@ -128,12 +130,12 @@ body {
 }
 
 .drop-zone.drag-over {
-    background-color: #E8F4FD;
-    border-color: #4A90E2;
+    background-color: var(--drag-bg-light);
+    border-color: var(--drag-color);
 }
 
 .drop-zone.drag-over .drop-zone-label {
-    color: #4A90E2;
+    color: var(--drag-color);
 }
 
 .drop-zone.has-items {
