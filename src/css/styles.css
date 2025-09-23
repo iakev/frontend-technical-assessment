@@ -34,7 +34,8 @@ body {
     align-items: center;
 }
 
-#drag-section h2 {
+#drag-section h2,
+#list-section h2 {
     text-align: center;
     margin: 0 0 1.5rem 0;
     color: var(--text-color);
@@ -42,7 +43,8 @@ body {
     font-weight: 600;
 }
 
-.drag-drop-container {
+.drag-drop-container,
+.blog-list-container {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -50,6 +52,54 @@ body {
     border-radius: 0.5rem;
     padding: 1.25rem;
     width: var(--container-width);
+}
+
+.blog-controls {
+    background-color: var(--light-gray);
+    padding: 1rem 0;
+    border-radius: 0.5rem 0.5rem 0 0;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin: -1.25rem -1.25rem 0 -1.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+.sort-select,
+.filter-select,
+.search-input {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-color);
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.sort-select,
+.filter-select {
+    min-width: 120px;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.sort-select:focus,
+.filter-select:focus,
+.search-input:focus {
+    border-color: var(--drag-color);
+}
+
+.sort-select::placeholder,
+.filter-select::placeholder,
+.search-input::placeholder {
+    color: var(--text-muted);
 }
 
 /* Draggable Items */
