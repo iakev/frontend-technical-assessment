@@ -189,6 +189,10 @@ body {
     padding: 2rem;
 }
 
+.hidden {
+    display: none !important;
+}
+
 /* Draggable Items */
 .draggable-list {
     display: flex;
