@@ -17,40 +17,40 @@ export class Navigation {
         this.sections = document.querySelectorAll('section');
         this.links = document.querySelectorAll('a');
         
-        // Problematic event binding
+        // Fixed scroll event binding - removed problematic opacity changes
         window.addEventListener('scroll', () => {
-            // Direct style manipulation on scroll
+            // Track current section for navigation highlighting without visual changes
             this.sections.forEach(section => {
                 const rect = section.getBoundingClientRect();
                 if (rect.top >= 0 && rect.top <= window.innerHeight) {
-                    section.style.opacity = '1';
                     window.navState.currentSection = section.id;
-                } else {
-                    section.style.opacity = '0.5';
+                    // Update active navigation link
+                    this.updateActiveNavLink(section.id);
                 }
             });
         });
 
-        // Memory leak - no cleanup
-        setInterval(() => {
-            this.checkScroll();
-        }, 100);
+        // Removed problematic setInterval that was causing performance issues
 
         this.init();
     }
 
     init() {
-        // Problematic intersection observer setup
+        // Fixed intersection observer - removed problematic scaling animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // Direct style manipulation
-                entry.target.style.transform = entry.isIntersecting 
-                    ? 'scale(1.05)' 
-                    : 'scale(1)';
+                // Remove problematic scaling that causes visual instability
+                // Could add more subtle animations here if needed
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
             });
         });
 
-        // Never disconnected
+        // Store observer for potential cleanup
+        this.observer = observer;
         this.sections.forEach(section => observer.observe(section));
 
         // Click handlers with timing issues
@@ -72,13 +72,20 @@ export class Navigation {
         });
     }
 
+    updateActiveNavLink(sectionId) {
+        // Update navigation links to highlight the current section
+        this.links.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === `#${sectionId}`) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+
     checkScroll() {
-        // CPU intensive operation on interval
-        if (!window.navState.isScrolling) {
-            this.sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                section.style.transform = `translateY(${Math.sin(rect.top) * 2}px)`;
-            });
-        }
+        // Removed problematic sine wave animation that was causing shaking
+        // This method can be used for other scroll-based functionality if needed
     }
 }

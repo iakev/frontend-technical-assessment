@@ -430,6 +430,9 @@ body {
 /* Utility Classes
 .loading {}
 .error {}
-.active {}
+.active {
+    color: #007bff;
+    font-weight: bold;
+}
 .dragging {}
 */
