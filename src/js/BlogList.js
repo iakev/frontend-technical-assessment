@@ -59,8 +59,8 @@ export class BlogList {
     }
 
     render() {
-        const end = this.page * this.perPage;
-        const slice = this.filteredItems.slice(0, end);
+        // Always show exactly 10 blogs from the original API data
+        const slice = this.items.slice(0, 10);
         this.listContainer.innerHTML = slice.map(item => `
             <article class=\"blog-item\">\n                <img src=\"${item.image}\" alt=\"\" class=\"blog-image\" />\n                <div class=\"blog-content\">\n                    <h3 class=\"blog-title\">${item.title}</h3>\n                    <div class=\"blog-meta\">\n                        <span class=\"blog-author\">${item.author}</span>\n                        <time class=\"blog-date\">${new Date(item.published_date).toLocaleDateString()}</time>\n                        <span class=\"blog-reading-time\">${item.reading_time}</span>\n                    </div>\n                    <p class=\"blog-excerpt\">${item.content}</p>\n                    <div class=\"blog-tags\">${(item.tags || []).map(t => `<span class=\"tag\">${t}</span>`).join('')}</div>\n                </div>\n            </article>
         `).join('');
