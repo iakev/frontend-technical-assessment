@@ -1,18 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frontend Assessment</title>
     <link rel="stylesheet" href="src/css/styles.css">
 </head>
+
 <body>
+    <!-- Header & Navigation -->
     <header>
-        <!-- Implement navigation here -->
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+            <ul class="nav-list" id="nav-list">
+                <li><a href="#nav-section" class="nav-link">Navigation</a></li>
+                <li><a href="#drag-section" class="nav-link">Drag & Drop</a></li>
+                <li><a href="#list-section" class="nav-link">Blog List</a></li>
+            </ul>
+        </nav>
     </header>
+
+    <!-- Main Sections -->
     <main>
-        <!-- Implement your solution here -->
+        <!-- Navigation Section -->
+        <section id="nav-section">
+            <div class="nav-content">
+                <h2>Navigation Section</h2>
+                <p>This section demonstrates fixed navigation and active link highlighting.</p>
+            </div>
+        </section>
+
+        <!-- Drag & Drop Section -->
+        <section id="drag-section">
+            <h2>Drag & Drop Section</h2>
+            <div class="drag-container">
+                <!-- Draggable Items on Top -->
+                <div class="items">
+                    <div id="item1" class="draggable" draggable="true">Item 1</div>
+                    <div id="item2" class="draggable" draggable="true">Item 2</div>
+                    <div id="item3" class="draggable" draggable="true">Item 3</div>
+                </div>
+
+                <!-- Drop Zones at Bottom -->
+                <div class="drop-zones">
+                    <div class="drop-zone" id="drop-left">Drop Here</div>
+                    <div class="drop-zone" id="drop-right">Drop Here</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog List Section -->
+        <section id="list-section">
+            <h2>Blog List Section</h2>
+            <div class="blog-controls">
+                <input type="text" id="search" placeholder="Search blogs...">
+                <select id="filter-category">
+                    <option value="">All Categories</option>
+                </select>
+                <select id="sort">
+                    <option value="">Sort by</option>
+                    <option value="published_date">Date</option>
+                    <option value="reading_time">Reading Time</option>
+                    <option value="category">Category</option>
+                </select>
+            </div>
+            <div id="blog-list"></div>
+        </section>
     </main>
+
+    <!-- Scripts -->
     <script type="module" src="src/js/main.js"></script>
 </body>
+
 </html>
