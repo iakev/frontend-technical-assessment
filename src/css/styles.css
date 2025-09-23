@@ -8,7 +8,7 @@
     --border-color: #e0e0e0;
     --text-color: #333;
     --text-muted: #999;
-    --container-width: 40%;
+    --container-width: 50%;
     --drag-color: #3498db;
     --drag-bg-light: #E8F4FD;
 }
@@ -25,7 +25,8 @@ body {
 }
 
 /* Drag & Drop Section Styles */
-#drag-section {
+#drag-section,
+#list-section {
     background-color: white;
     border-radius: 0.5rem;
     padding: 2rem;
