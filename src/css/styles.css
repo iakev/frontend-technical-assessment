@@ -2,10 +2,123 @@
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
+    --light-gray: #f5f5f5;
+    --medium-gray: #e0e0e0;
+    --dark-gray: #666;
 }
 
 body {
     margin: 0;
     padding: 0;
     font-family: system-ui, -apple-system, sans-serif;
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Drag & Drop Section Styles */
+#drag-section {
+    background-color: var(--light-gray);
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#drag-section h2 {
+    text-align: center;
+    margin: 0 0 30px 0;
+    color: var(--primary-color);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.drag-drop-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Draggable Items */
+.draggable-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.draggable-item {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: grab;
+    transition: transform 0.2s ease;
+}
+
+.draggable-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.draggable-item:active {
+    cursor: grabbing;
+}
+
+.item-content {
+    font-size: 16px;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.drag-handle {
+    color: var(--dark-gray);
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+    cursor: grab;
+    user-select: none;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+/* Drop Zones */
+.drop-zones {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.drop-zone {
+    border: 2px dashed var(--medium-gray);
+    border-radius: 8px;
+    padding: 40px 20px;
+    text-align: center;
+    background-color: white;
+    min-width: 150px;
+    transition: all 0.3s ease;
+}
+
+.drop-zone:hover {
+    border-color: var(--secondary-color);
+    background-color: #f8f9ff;
+}
+
+.drop-zone.drag-over {
+    border-color: var(--secondary-color);
+    background-color: #e8f4fd;
+    transform: scale(1.02);
+}
+
+.drop-zone-label {
+    color: var(--dark-gray);
+    font-size: 16px;
+    font-weight: 500;
 }
