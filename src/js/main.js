@@ -5,11 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Drag & Drop
     const dragDropContainer = document.querySelector('.drag-drop-container');
     if (dragDropContainer) {
-        const dragDrop = new DragDrop();
+        const dragDrop = new DragDrop(dragDropContainer);
         dragDrop.init();
     }
 
-    // Initialize Blog List (partial)
+    // Initialize Blog List
     const blogListContainer = document.querySelector('.blog-list-container');
     if (blogListContainer) {
         const blogList = new BlogList(blogListContainer);
