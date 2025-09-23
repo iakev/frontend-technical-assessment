@@ -15,9 +15,11 @@ export class Navigation {
     constructor() {
         // Direct queries without checks
         this.sections = document.querySelectorAll('section');
-        this.links = document.querySelectorAll('a');
+        this.links = document.querySelectorAll('.nav-link');
         this.navToggle = document.querySelector('.nav-toggle');
         this.navList = document.querySelector('.nav-list');
+        this.currentFocusIndex = 0;
+        this.isMenuOpen = false;
         
         // Throttled scroll event for better performance
         let scrollTimeout;
@@ -41,6 +43,7 @@ export class Navigation {
         // Removed problematic setInterval that was causing performance issues
 
         this.init();
+        this.setupKeyboardNavigation();
     }
 
     init() {
@@ -75,7 +78,7 @@ export class Navigation {
                     this.updateActiveNavLink(targetId);
                     
                     // Use native smooth scrolling for better performance
-                    const headerHeight = 64; // Account for fixed header height (4rem = 64px)
+                    const headerHeight = 48; // Account for fixed header height (3rem = 48px)
                     const targetPosition = target.offsetTop - headerHeight;
                     
                     window.scrollTo({
@@ -93,10 +96,96 @@ export class Navigation {
             const href = link.getAttribute('href');
             if (href === `#${sectionId}`) {
                 link.classList.add('active');
+                link.setAttribute('aria-current', 'true');
             } else {
                 link.classList.remove('active');
+                link.setAttribute('aria-current', 'false');
             }
         });
+    }
+
+    setupKeyboardNavigation() {
+        // Add keyboard event listeners
+        document.addEventListener('keydown', (e) => this.handleKeyDown(e));
+        
+        // Add focus management for mobile menu
+        this.navToggle.addEventListener('keydown', (e) => this.handleToggleKeyDown(e));
+        
+        // Add keyboard navigation for menu items
+        this.links.forEach((link, index) => {
+            link.addEventListener('keydown', (e) => this.handleLinkKeyDown(e, index));
+        });
+    }
+
+    handleKeyDown(e) {
+        // Handle Escape key to close mobile menu
+        if (e.key === 'Escape' && this.isMenuOpen) {
+            this.closeMobileMenu();
+            this.navToggle.focus();
+        }
+    }
+
+    handleToggleKeyDown(e) {
+        // Handle Enter and Space keys for toggle button
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.toggleMobileMenu();
+        }
+    }
+
+    handleLinkKeyDown(e, index) {
+        const isMenuOpen = this.navList.classList.contains('active');
+        
+        switch (e.key) {
+            case 'ArrowDown':
+            case 'ArrowRight':
+                e.preventDefault();
+                this.focusNextLink(index);
+                break;
+            case 'ArrowUp':
+            case 'ArrowLeft':
+                e.preventDefault();
+                this.focusPreviousLink(index);
+                break;
+            case 'Home':
+                e.preventDefault();
+                this.focusFirstLink();
+                break;
+            case 'End':
+                e.preventDefault();
+                this.focusLastLink();
+                break;
+            case 'Escape':
+                if (isMenuOpen) {
+                    e.preventDefault();
+                    this.closeMobileMenu();
+                    this.navToggle.focus();
+                }
+                break;
+        }
+    }
+
+    focusNextLink(currentIndex) {
+        const nextIndex = (currentIndex + 1) % this.links.length;
+        this.links[nextIndex].focus();
+        this.currentFocusIndex = nextIndex;
+    }
+
+    focusPreviousLink(currentIndex) {
+        const prevIndex = currentIndex === 0 ? this.links.length - 1 : currentIndex - 1;
+        this.links[prevIndex].focus();
+        this.currentFocusIndex = prevIndex;
+    }
+
+    focusFirstLink() {
+        this.links[0].focus();
+        this.currentFocusIndex = 0;
+    }
+
+    focusLastLink() {
+        const lastIndex = this.links.length - 1;
+        this.links[lastIndex].focus();
+        this.currentFocusIndex = lastIndex;
     }
 
     setupMobileMenu() {
@@ -123,17 +212,44 @@ export class Navigation {
 
     toggleMobileMenu() {
         if (this.navList) {
+            this.isMenuOpen = !this.isMenuOpen;
             this.navList.classList.toggle('active');
-            this.navToggle.setAttribute('aria-expanded', 
-                this.navList.classList.contains('active'));
+            this.navToggle.setAttribute('aria-expanded', this.isMenuOpen.toString());
+            
+            // Announce menu state to screen readers
+            this.announceToScreenReader(this.isMenuOpen ? 'Navigation menu opened' : 'Navigation menu closed');
+            
+            // Focus management
+            if (this.isMenuOpen) {
+                // Focus first menu item when opening
+                setTimeout(() => {
+                    this.links[0].focus();
+                }, 100);
+            }
         }
     }
 
     closeMobileMenu() {
         if (this.navList) {
+            this.isMenuOpen = false;
             this.navList.classList.remove('active');
             this.navToggle.setAttribute('aria-expanded', 'false');
+            this.announceToScreenReader('Navigation menu closed');
         }
+    }
+
+    announceToScreenReader(message) {
+        // Create or update live region for screen reader announcements
+        let liveRegion = document.getElementById('live-region');
+        if (!liveRegion) {
+            liveRegion = document.createElement('div');
+            liveRegion.id = 'live-region';
+            liveRegion.setAttribute('aria-live', 'polite');
+            liveRegion.setAttribute('aria-atomic', 'true');
+            liveRegion.className = 'sr-only';
+            document.body.appendChild(liveRegion);
+        }
+        liveRegion.textContent = message;
     }
 
 
