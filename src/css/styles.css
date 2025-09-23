@@ -9,3 +9,60 @@ body {
     padding: 0;
     font-family: system-ui, -apple-system, sans-serif;
 }
+.drag-drop-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.draggable-list {
+    flex: 1;
+    min-width: 200px;
+}
+
+.drop-zones {
+    flex: 2;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.draggable-item {
+    background-color: #f5f5f5;
+    border: 2px dashed #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: grab;
+    transition: transform 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.draggable-item.dragging {
+    opacity: 0.5;
+    transform: scale(1.05);
+}
+
+.drag-handle {
+    font-size: 1.2rem;
+    color: #888;
+}
+
+.drop-zone {
+    border: 2px solid #007bff;
+    background-color: #e9f5ff;
+    min-height: 150px;
+    padding: 10px;
+    flex: 1;
+    transition: background-color 0.3s ease;
+}
+
+.drop-zone.drag-over {
+    background-color: #d0ebff;
+}
+
+.drop-zone-label {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
