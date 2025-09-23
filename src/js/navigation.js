@@ -65,6 +65,9 @@ export class Navigation {
                 const target = document.getElementById(targetId);
                 
                 if (target) {
+                    // Immediately update active navigation link
+                    this.updateActiveNavLink(targetId);
+                    
                     // Smooth scrolling to target section
                     this.smoothScrollTo(target);
                     window.navState.isScrolling = true;
