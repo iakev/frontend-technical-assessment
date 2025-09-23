@@ -1,58 +1,58 @@
-# Frontend Technical Assessment
+Frontend Technical Assessment
 
-## Overview
-This is a 24-hour technical assessment testing your skills in:
-- Advanced JavaScript (ES2015)
-- DOM Manipulation & Performance
-- Git Operations
-- Accessibility
-- Documentation
+Author: Henok Aragaw
 
-## Setup Instructions
-1. Clone this repository
-2. Create a new branch: `feature/your-solution`
-3. Complete the tasks below
-4. Submit a Pull Request
+Overview
 
-## Tasks
+This project is a solution to the Onirele School Front-End Developer Assessment.
+It implements the following tasks:
 
-### 1. Navigation Component
-Implement a sticky navigation bar that:
-- Changes active section based on viewport (IntersectionObserver)
-- Handles smooth scrolling
-- Is accessible via keyboard
-- Works on mobile devices
+1. Navigation
 
-### 2. Drag & Drop Implementation
-Create a drag and drop interface that:
-- Supports both mouse and touch events
-- Includes drag previews
-- Handles animation performance
-- Is accessible
+Sticky, centered navbar that remains visible while scrolling.
 
-### 3. Virtual List
-Implement a virtual scrolling list that:
-- Efficiently renders large datasets
-- Recycles DOM elements
-- Maintains smooth scrolling
-- Handles dynamic content updates
+Active link highlighting based on the current scroll position.
 
-### 4. Performance Optimization
-- Implement efficient event handling
-- Optimize animations
-- Handle memory management
-- Monitor and report performance metrics
+2. Drag & Drop
 
-## Evaluation Criteria
-- Code quality and organization
-- Git operations and conflict resolution
-- Performance optimization
-- Accessibility implementation
-- Documentation quality
+Three draggable items positioned at the top.
 
-## Submission Requirements
-Your PR should include:
-- Completed implementation
-- Documentation of your approach
-- Performance metrics
-- Git workflow documentation
+Two drop zones at the bottom.
+
+Items stack vertically in drop zones (flex-col) and can be moved between zones.
+
+3. Blog List
+
+Fetches blog data from an API.
+
+Displays blog image (left) and text (right) using a flex layout.
+
+Blog text wraps properly for long content.
+
+Shows tags, author, category, published date, and reading time.
+
+Features
+
+Fully responsive design for desktop and mobile devices.
+
+Smooth scrolling for navigation links.
+
+Drag & drop interactions with visual feedback.
+
+Clean and modern UI using CSS Flexbox.
+
+How to Run Locally
+
+1.Clone your forked repository:
+git clone https://github.com/Henok-Aragaw/frontend-technical-assessment.git
+cd frontend-technical-assessment
+
+2.Open index.html in your browser or use Live Server in VS Code.
+
+3.Ensure that main.js and styles.css are correctly linked.
+
+Notes
+
+No build tools are required; this is a vanilla HTML/CSS/JS solution.
+
+AI tools were used to optimize some implementations, but the final code reflects manual improvements and testing.
