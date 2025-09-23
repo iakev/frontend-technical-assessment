@@ -78,7 +78,7 @@ export class Navigation {
                     this.updateActiveNavLink(targetId);
                     
                     // Use native smooth scrolling for better performance
-                    const headerHeight = 48; // Account for fixed header height (3rem = 48px)
+                    const headerHeight = 64; // Account for fixed header height (4rem = 64px)
                     const targetPosition = target.offsetTop - headerHeight;
                     
                     window.scrollTo({

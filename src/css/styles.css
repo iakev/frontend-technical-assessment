@@ -463,7 +463,7 @@ header {
     padding: 0 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    height: 3rem;
+    height: 4rem;
 }
 
 .nav-list {
@@ -578,7 +578,7 @@ header {
     
     .nav-list {
         position: fixed;
-        top: 3rem;
+        top: 4rem;
         left: 0;
         right: 0;
         background: var(--primary-color);
@@ -608,7 +608,7 @@ header {
 
 /* Add top padding to main content to account for fixed header */
 main {
-    margin-top: 3rem;
+    margin-top: 4rem;
 }
 
 /* Smooth scrolling for the entire page */
@@ -618,6 +618,6 @@ html {
 
 /* Ensure sections have proper spacing for smooth scrolling */
 .content-section {
-    scroll-margin-top: 3rem;
+    scroll-margin-top: 4rem;
 }
 
