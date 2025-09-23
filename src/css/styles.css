@@ -337,6 +337,7 @@ body {
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
+    --accent-color: #e74c3c;
 }
 
 header {
@@ -386,7 +387,7 @@ header {
 
 .nav-link.active {
     color: white;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--accent-color);
     font-weight: 600;
 }
 
