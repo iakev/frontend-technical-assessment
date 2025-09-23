@@ -10,9 +10,14 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
 }
 
+hr {
+  border: 1px solid lightblue;
+}
+
 #drag-section {
-  width: 40%;
+  width: 50%;
   margin: 0 auto;
+  height: 100vh;
 }
 
 .drag-drop-title {
@@ -72,4 +77,85 @@ body {
 .drop-zone.drop-over {
   background: lightblue;
   border-color: #bbbbbb;
+}
+
+#list-section {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.blog-list-title {
+  text-align: center;
+}
+
+.blog-list-container {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.blog-controls {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 20px;
+  background-color: #f7fafc;
+}
+
+select,
+input {
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: system-ui, -apple-system, sans-serif;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.blog-list-content {
+  padding: 20px;
+}
+
+.blog-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 20px;
+  display: flex;
+  align-items: start;
+}
+
+.blog-image {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+
+.blog-title {
+  margin-top: 0 !important;
+}
+
+.blog-tags {
+  display: inline-block;
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
