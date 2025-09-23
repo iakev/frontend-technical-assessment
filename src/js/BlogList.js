@@ -19,6 +19,11 @@ export class BlogList {
         this.page = 1;
         this.perPage = 10;
 
+        // Current filter states
+        this.currentSort = '';
+        this.currentFilter = '';
+        this.currentSearch = '';
+
         // Bind handlers
         this.onSortChange = this.onSortChange.bind(this);
         this.onFilterChange = this.onFilterChange.bind(this);
@@ -30,7 +35,7 @@ export class BlogList {
             this.showLoading();
             await this.fetchData();
             this.setupEventListeners();
-            this.render();
+            this.applyFilters();
         } catch (err) {
             this.showError(err);
         } finally {
@@ -59,8 +64,8 @@ export class BlogList {
     }
 
     render() {
-        // Always show exactly 10 blogs from the original API data
-        const slice = this.items.slice(0, 10);
+        // Show filtered/sorted results, limiting to 10 items
+        const slice = this.filteredItems.slice(0, 10);
         this.listContainer.innerHTML = slice.map(item => `
             <article class=\"blog-item\">\n                <img src=\"${item.image}\" alt=\"\" class=\"blog-image\" />\n                <div class=\"blog-content\">\n                    <h3 class=\"blog-title\">${item.title}</h3>\n                    <div class=\"blog-meta\">\n                        <span class=\"blog-author\">${item.author}</span>\n                        <time class=\"blog-date\">${new Date(item.published_date).toLocaleDateString()}</time>\n                        <span class=\"blog-reading-time\">${item.reading_time}</span>\n                    </div>\n                    <p class=\"blog-excerpt\">${item.content}</p>\n                    <div class=\"blog-tags\">${(item.tags || []).map(t => `<span class=\"tag\">${t}</span>`).join('')}</div>\n                </div>\n            </article>
         `).join('');
@@ -72,12 +77,49 @@ export class BlogList {
 
     // TODO (candidate): implement sorting
     onSortChange(e) {
-        const by = e.target.value;
-        if (!by) {
-            this.filteredItems = [...this.items];
-        } else {
-            this.filteredItems.sort((a, b) => {
-                switch (by) {
+        this.currentSort = e.target.value;
+        this.applyFilters();
+    }
+
+    // TODO (candidate): implement filtering
+    onFilterChange(e) {
+        this.currentFilter = e.target.value;
+        this.applyFilters();
+    }
+
+    // TODO (candidate): implement search by title
+    onSearchInput(e) {
+        this.currentSearch = e.target.value;
+        this.applyFilters();
+    }
+
+    applyFilters() {
+        // Start with all items
+        let filtered = [...this.items];
+
+        // Apply search filter
+        if (this.currentSearch) {
+            const searchTerm = this.currentSearch.toLowerCase();
+            filtered = filtered.filter(item => {
+                return item.title.toLowerCase().includes(searchTerm) ||
+                       item.content.toLowerCase().includes(searchTerm) ||
+                       item.author.toLowerCase().includes(searchTerm);
+            });
+        }
+
+        // Apply category filter
+        if (this.currentFilter) {
+            filtered = filtered.filter(item => {
+                return item.category === this.currentFilter || 
+                       (item.tags && item.tags.includes(this.currentFilter)) ||
+                       item.author === this.currentFilter;
+            });
+        }
+
+        // Apply sorting
+        if (this.currentSort) {
+            filtered.sort((a, b) => {
+                switch (this.currentSort) {
                     case 'date':
                         return new Date(b.published_date) - new Date(a.published_date);
                     case 'reading_time':
@@ -89,38 +131,8 @@ export class BlogList {
                 }
             });
         }
-        this.page = 1;
-        this.render();
-    }
 
-    // TODO (candidate): implement filtering
-    onFilterChange(e) {
-        const val = e.target.value; // Gadgets | Startups | Writing | ''
-        if (!val) {
-            this.filteredItems = [...this.items];
-        } else {
-            this.filteredItems = this.items.filter(item => {
-                return item.category === val || 
-                       (item.tags && item.tags.includes(val)) ||
-                       item.author === val;
-            });
-        }
-        this.page = 1;
-        this.render();
-    }
-
-    // TODO (candidate): implement search by title
-    onSearchInput(e) {
-        const q = (e.target.value || '').toLowerCase();
-        if (!q) {
-            this.filteredItems = [...this.items];
-        } else {
-            this.filteredItems = this.items.filter(item => {
-                return item.title.toLowerCase().includes(q) ||
-                       item.content.toLowerCase().includes(q) ||
-                       item.author.toLowerCase().includes(q);
-            });
-        }
+        this.filteredItems = filtered;
         this.page = 1;
         this.render();
     }
