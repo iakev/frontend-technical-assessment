@@ -16,6 +16,8 @@ export class Navigation {
         // Direct queries without checks
         this.sections = document.querySelectorAll('section');
         this.links = document.querySelectorAll('a');
+        this.navToggle = document.querySelector('.nav-toggle');
+        this.navList = document.querySelector('.nav-list');
         
         // Fixed scroll event binding - removed problematic opacity changes
         window.addEventListener('scroll', () => {
@@ -36,6 +38,8 @@ export class Navigation {
     }
 
     init() {
+        // Setup mobile menu toggle
+        this.setupMobileMenu();
         // Fixed intersection observer - removed problematic scaling animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -82,6 +86,43 @@ export class Navigation {
                 link.classList.remove('active');
             }
         });
+    }
+
+    setupMobileMenu() {
+        if (this.navToggle && this.navList) {
+            this.navToggle.addEventListener('click', () => {
+                this.toggleMobileMenu();
+            });
+
+            // Close mobile menu when clicking on a link
+            this.links.forEach(link => {
+                link.addEventListener('click', () => {
+                    this.closeMobileMenu();
+                });
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!this.navList.contains(e.target) && !this.navToggle.contains(e.target)) {
+                    this.closeMobileMenu();
+                }
+            });
+        }
+    }
+
+    toggleMobileMenu() {
+        if (this.navList) {
+            this.navList.classList.toggle('active');
+            this.navToggle.setAttribute('aria-expanded', 
+                this.navList.classList.contains('active'));
+        }
+    }
+
+    closeMobileMenu() {
+        if (this.navList) {
+            this.navList.classList.remove('active');
+            this.navToggle.setAttribute('aria-expanded', 'false');
+        }
     }
 
     checkScroll() {
