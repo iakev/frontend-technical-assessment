@@ -1,138 +1,319 @@
-/* Base Variables */
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
-    --accent-color: #e74c3c;
-    --text-color: #333333;
-    --border-color: #dddddd;
-    --spacing: 16px;
-    
-    /* Breakpoint Variables */
-    --mobile: 480px;
-    --tablet: 768px;
-    --desktop: 1024px;
-    --large-desktop: 1200px;
-}
-
-/* Basic Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
     line-height: 1.6;
-    color: var(--text-color);
+    background: #f9f9f9;
 }
 
-/* Base Styles */
-.container {
+h2 { 
+    margin-top: 0; 
+    text-align: center;
+}
+
+/* ----------------------------
+   Navigation
+----------------------------- */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: var(--large-desktop);
-    margin: 0 auto;
-    padding: 0 var(--spacing);
+    background: #fff;
+    z-index: 1000;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
 }
 
-/* Navigation Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Stack navigation items vertically
- * - Show hamburger menu
- * - Hide nav-list by default
- * - Add slide-in animation for menu
- *
- * Tablet (768px - 1023px):
- * - Show navigation items in a row
- * - Remove hamburger menu
- * - Adjust padding and spacing
- *
- * Desktop (≥ 1024px):
- * - Enhanced hover states
- * - Sticky navigation
- */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 24px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    z-index: 1100;
+    padding: 0;
+}
 
-/* Drag & Drop Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Stack drop zones vertically
- * - Larger touch targets
- * - Full-width items
- *
- * Tablet (768px - 1023px):
- * - 2x2 grid for drop zones
- * - Maintain aspect ratio
- *
- * Desktop (≥ 1024px):
- * - Side-by-side layout
- * - Hover effects
- * - Drag previews
- */
+.nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+    margin: 3px 0;
+    transition: 0.3s;
+}
 
-/* Blog List Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Single column layout
- * - Stack all elements
- * - Compact view
- * 
- * Tablet (768px - 1023px):
- * - 2 column grid
- * - Responsive images
- * - Show/hide certain metadata
- *
- * Desktop (≥ 1024px):
- * - 3 column grid
- * - Hover states
- * - Enhanced animations
- */
+.nav-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+.nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+.nav-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
 
-/* Content Sections - Responsive Requirements:
- * Mobile (< 480px):
- * - Full-width sections
- * - Increased text size
- * - Stack all content
- *
- * Tablet (768px - 1023px):
- * - Balanced padding
- * - 2-column where appropriate
- *
- * Desktop (≥ 1024px):
- * - Max-width container
- * - Enhanced spacing
- */
+.nav-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition: max-height 0.3s ease;
+    gap: 20px;
+}
 
-/* TODO: Implement Components */
+.nav-list li { 
+    margin: 0; 
+}
 
-/* Navigation
-.nav {}
-.nav-list {}
-.nav-link {}
-.nav-toggle {}
-*/
+.nav-link {
+    text-decoration: none;
+    color: var(--primary-color);
+    padding: 8px 15px;
+    transition: background 0.3s, color 0.3s;
+    font-weight: 500;
+    text-align: center;
+}
 
-/* Drag & Drop
-.drag-drop-container {}
-.draggable-list {}
-.draggable-item {}
-.drag-handle {}
-.drop-zones {}
-.drop-zone {}
-*/
+.nav-link.active {
+    background: var(--secondary-color);
+    color: #fff;
+    border-radius: 5px;
+}
 
-/* Blog List
-.blog-list-container {}
-.blog-list-viewport {}
-.blog-list-content {}
-.blog-item {}
-.blog-title {}
-.blog-card {}
-.blog-card-image {}
-.blog-card-content {}
-.blog-card-meta {}
-*/
+/* Mobile nav toggle */
+@media (max-width: 600px) {
+    .nav-toggle {
+        display: flex;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .nav-list {
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        border-bottom: 1px solid #ddd;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .nav-list.open {
+        max-height: 500px;
+    }
+    .nav-list li { 
+        margin: 10px 0;
+        text-align: center;
+    }
+    .nav-link {
+        padding: 10px 22px;
+        color: var(--primary-color);
+    }
+    .nav-link.active {
+        background: var(--secondary-color);
+        color: #fff;
+    }
+}
 
-/* Utility Classes
-.loading {}
-.error {}
-.active {}
-.dragging {}
-*/
+/* ----------------------------
+   Navigation Section Text Center
+----------------------------- */
+#nav-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 200px;
+    background: #f0f0f0;
+}
+
+/* ----------------------------
+   Drag & Drop
+----------------------------- */
+.drag-container { 
+    display: flex; 
+    border: 2px solid #ccc;
+    box-shadow: #2c3e50 0px 1px 2px;
+    border-radius: 10px;
+    padding: 20px;
+    flex-direction: column;
+    align-items: center; 
+    gap: 30px; 
+    max-width: 600px;
+    margin: 0 auto;
+    overflow: hidden; 
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.items {
+    display: flex;
+    justify-content: center;
+    flex-direction: column; 
+    gap: 10px;
+    width: 100%;
+}
+
+.drop-zones {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.drop-zone {
+    min-height: 150px;
+    width: 200px;
+    border: 2px dashed #888;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    justify-content: flex-start;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.drop-zone.drag-over {
+    background: #e0f7ff;
+    border-color: var(--secondary-color);
+}
+
+.draggable {
+    padding: 10px 20px;
+    background: #f3f3f3;
+    border: 1px solid #ccc;
+    cursor: grab;
+    border-radius: 8px;
+    transition: transform 0.2s ease, background 0.2s ease;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.draggable.dragging {
+    opacity: 0.5;
+    transform: scale(1.05);
+    background: #e0f7ff;
+}
+
+/* ----------------------------
+   Blog List
+----------------------------- */
+.blog-controls { 
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 20px; 
+    flex-wrap: wrap; 
+}
+
+.blog-controls input, .blog-controls select { 
+    padding: 8px 12px; 
+    border-radius: 5px; 
+    border: 1px solid #ccc; 
+    outline: none; 
+    font-size: 14px; 
+}
+
+#blog-list { 
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 20px; 
+}
+
+.blog-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+}
+
+.blog-flex { 
+    display: flex; 
+    gap: 15px; 
+    align-items: flex-start; 
+    flex-wrap: wrap; 
+}
+
+.blog-flex .blog-image { 
+    width: 250px; 
+    height: 150px; 
+    object-fit: cover; 
+    border-radius: 5px; 
+    flex-shrink: 0; 
+}
+
+.blog-flex .blog-text { 
+    flex: 1; 
+    word-break: break-word;
+    white-space: normal;
+    overflow-wrap: anywhere;    
+}
+
+.blog-flex .blog-text h3 { margin: 0 0 5px 0; }
+.blog-flex .blog-text p { 
+    margin: 5px 0; 
+    white-space: normal; 
+    overflow-wrap: anywhere;     
+}
+
+.blog-flex .tags { margin-top: 10px; }
+
+.blog-flex .tag { 
+    display: inline-block; 
+    background: var(--secondary-color); 
+    color: #fff; 
+    padding: 3px 8px; 
+    border-radius: 5px; 
+    font-size: 12px; 
+    margin-right: 5px; 
+}
+
+/* ----------------------------
+   Sections spacing
+----------------------------- */
+section { 
+    padding: 80px 20px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+/* ----------------------------
+   Responsive
+----------------------------- */
+@media (max-width: 800px) {
+    .blog-flex { flex-direction: column; }
+    .blog-flex .blog-image { width: 100%; height: auto; }
+    .items { flex-direction: column; }
+}
