@@ -332,76 +332,11 @@ body {
     padding: 0 var(--spacing);
 }
 
-/* Navigation Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Stack navigation items vertically
- * - Show hamburger menu
- * - Hide nav-list by default
- * - Add slide-in animation for menu
- *
- * Tablet (768px - 1023px):
- * - Show navigation items in a row
- * - Remove hamburger menu
- * - Adjust padding and spacing
- *
- * Desktop (≥ 1024px):
- * - Enhanced hover states
- * - Sticky navigation
- */
-
-/* Drag & Drop Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Stack drop zones vertically
- * - Larger touch targets
- * - Full-width items
- *
- * Tablet (768px - 1023px):
- * - 2x2 grid for drop zones
- * - Maintain aspect ratio
- *
- * Desktop (≥ 1024px):
- * - Side-by-side layout
- * - Hover effects
- * - Drag previews
- */
-
-/* Blog List Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Single column layout
- * - Stack all elements
- * - Compact view
- * 
- * Tablet (768px - 1023px):
- * - 2 column grid
- * - Responsive images
- * - Show/hide certain metadata
- *
- * Desktop (≥ 1024px):
- * - 3 column grid
- * - Hover states
- * - Enhanced animations
- */
-
-/* Content Sections - Responsive Requirements:
- * Mobile (< 480px):
- * - Full-width sections
- * - Increased text size
- * - Stack all content
- *
- * Tablet (768px - 1023px):
- * - Balanced padding
- * - 2-column where appropriate
- *
- * Desktop (≥ 1024px):
- * - Max-width container
- * - Enhanced spacing
- */
-
-/* TODO: Implement Components */
 
 /* Navigation - Sticky Navigation Styles */
 :root {
     --primary-color: #2c3e50;
+    --secondary-color: #3498db;
 }
 
 header {
@@ -445,8 +380,8 @@ header {
 }
 
 .nav-link:hover {
-    color: #f8f9fa;
-    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    background-color: var(--secondary-color);
 }
 
 .nav-link.active {
@@ -546,34 +481,3 @@ html {
     scroll-margin-top: 4rem;
 }
 
-/* Drag & Drop
-.drag-drop-container {}
-.draggable-list {}
-.draggable-item {}
-.drag-handle {}
-.drop-zones {}
-.drop-zone {}
-*/
-
-/* Blog List
-.blog-list-container {}
-.blog-list-viewport {}
-.blog-list-content {}
-.blog-item {}
-.blog-title {}
-.blog-card {}
-.blog-card-image {}
-.blog-card-content {}
-.blog-card-meta {}
-*/
-
-/* Utility Classes
-.loading {}
-.error {}
-.active {
-    color: white;
-    font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.2);
-}
-.dragging {}
-*/
