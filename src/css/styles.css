@@ -419,7 +419,7 @@ header {
 .nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0 2rem;
     max-width: 1200px;
     margin: 0 auto;
@@ -494,6 +494,7 @@ header {
 @media (max-width: 768px) {
     .nav {
         padding: 0 1rem;
+        justify-content: space-between;
     }
     
     .nav-toggle {
