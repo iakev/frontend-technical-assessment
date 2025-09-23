@@ -7,6 +7,15 @@
     --border-color: #dddddd;
     --spacing: 16px;
     
+    /* Additional Variables from HEAD */
+    --light-gray: #f5f5f5;
+    --medium-gray: #e0e0e0;
+    --dark-gray: #666;
+    --text-muted: #999;
+    --container-width: 50%;
+    --drag-color: #3498db;
+    --drag-bg-light: #E8F4FD;
+    
     /* Breakpoint Variables */
     --mobile: 480px;
     --tablet: 768px;
@@ -25,6 +34,294 @@ body {
     font-family: system-ui, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Drag & Drop Section Styles */
+#drag-section,
+#list-section {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#drag-section h2,
+#list-section h2 {
+    text-align: center;
+    margin: 0 0 1.5rem 0;
+    color: var(--text-color);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.drag-drop-container,
+.blog-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    width: var(--container-width);
+}
+
+.blog-controls {
+    background-color: var(--light-gray);
+    padding: 1rem 0;
+    border-radius: 0.5rem 0.5rem 0 0;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin: -1.25rem -1.25rem 0 -1.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+.sort-select,
+.filter-select,
+.search-input {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-color);
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.sort-select,
+.filter-select {
+    min-width: 120px;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.sort-select:focus,
+.filter-select:focus,
+.search-input:focus {
+    border-color: var(--drag-color);
+}
+
+.sort-select::placeholder,
+.filter-select::placeholder,
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Blog Items */
+.blog-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    transition: box-shadow 0.2s ease;
+}
+
+.blog-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.blog-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 0.375rem;
+    flex-shrink: 0;
+}
+
+.blog-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.blog-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.blog-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.blog-author,
+.blog-date,
+.blog-reading-time {
+    margin: 0;
+}
+
+.blog-excerpt {
+    font-size: 0.875rem;
+    color: var(--text-color);
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.blog-tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.tag {
+    background-color: var(--drag-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.no-results {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 2rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Draggable Items */
+.draggable-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+}
+
+.draggable-item {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: grab;
+}
+
+.draggable-item:active {
+    cursor: grabbing;
+}
+
+.draggable-item.dragging {
+    background-color: var(--drag-color);
+    color: white;
+    border: 1px solid var(--drag-color);
+    z-index: 1000;
+}
+
+.draggable-item.dragging .item-content {
+    color: white;
+}
+
+.draggable-item.dragging .drag-handle {
+    display: none;
+}
+
+.item-content {
+    font-size: 0.875rem;
+    color: var(--text-color);
+    font-weight: 400;
+}
+
+.drag-handle {
+    display: none;
+}
+
+/* Drop Zones */
+.drop-zones {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.drop-zone {
+    border: 2px dashed var(--medium-gray);
+    border-radius: 0.375rem;
+    padding: 2rem 1.25rem;
+    text-align: center;
+    background-color: white;
+    flex: 1;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.drop-zone-label {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 400;
+}
+
+.drop-zone.drag-over {
+    background-color: var(--drag-bg-light);
+    border-color: var(--drag-color);
+}
+
+.drop-zone.drag-over .drop-zone-label {
+    color: var(--drag-color);
+}
+
+.drop-zone.has-items {
+    background-color: white !important;
+    border-color: var(--medium-gray);
+}
+
+.drop-zone.has-items .drop-zone-label {
+    color: var(--text-muted);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    :root {
+        --container-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --container-width: 95%;
+    }
+}
+
+@media (max-width: 320px) {
+    :root {
+        --container-width: 100%;
+    }
 }
 
 /* Base Styles */
