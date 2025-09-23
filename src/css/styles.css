@@ -91,6 +91,7 @@ body {
     display: flex;
     gap: 15px;
     justify-content: center;
+    width: 100%;
 }
 
 .drop-zone {
@@ -99,7 +100,11 @@ body {
     padding: 30px 20px;
     text-align: center;
     background-color: white;
-    min-width: 120px;
+    flex: 1;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .drop-zone-label {
