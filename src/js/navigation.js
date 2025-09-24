@@ -35,10 +35,9 @@ export class Navigation {
     this.navToggle = document.querySelector(".nav-toggle");
     this.navMenu = document.querySelector(".nav-menu");
 
-    if (!this.navLinks.length) {
-      throw new Error("No nav links found");
+    if (this.navLinks.length === 0 || this.sections.length === 0) {
+      throw new Error("Required navigation elements not found");
     }
-    // sections can be empty safely
   }
 
   setupEventListeners() {
