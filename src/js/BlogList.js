@@ -73,22 +73,63 @@ export class BlogList {
     // TODO (candidate): implement sorting
     onSortChange(e) {
         const by = e.target.value;
-        // Implement sorting by: date, reading_time, category
-        // After sorting, reset page to 1 and call this.render()
+        this.page = 1;
+
+        let sorted = [...this.filteredItems];
+        switch (by) {
+            case "date":
+                sorted.sort((a, b) =>
+                    new Date(b.published_date) - new Date(a.published_date)
+                );
+                break;
+            case "reading_time":
+                sorted.sort((a, b) => {
+                    const aTime = parseInt(a.reading_time, 10) || 0;
+                    const bTime = parseInt(b.reading_time, 10) || 0;
+                    return aTime - bTime;
+                });
+                break;
+            case "category":
+                sorted.sort((a, b) =>
+                    (a.category || "").localeCompare(b.category || "")
+                );
+                break;
+            default:
+                sorted = [...this.filteredItems];
+        }
+
+        this.filteredItems = sorted;
+        this.render();
     }
 
     // TODO (candidate): implement filtering
     onFilterChange(e) {
-        const val = e.target.value; // Gadgets | Startups | Writing | ''
-        // Filter this.items by category or tags to create this.filteredItems
-        // After filtering, reset page to 1 and call this.render()
+        const val = e.target.value;
+        this.page = 1;
+
+        if (val) {
+            this.filteredItems = this.items.filter(item =>
+                (item.category && item.category === val) ||
+                (item.tags && item.tags.includes(val))
+            );
+        } else {
+            this.filteredItems = [...this.items];
+        }
+
+        this.render();
     }
 
     // TODO (candidate): implement search by title
     onSearchInput(e) {
-        const q = (e.target.value || '').toLowerCase();
-        // Filter by title (and optionally content) using q
-        // After filtering, reset page to 1 and call this.render()
+        const q = (e.target.value || "").toLowerCase();
+        this.page = 1;
+
+        this.filteredItems = this.items.filter(item =>
+            item.title.toLowerCase().includes(q) ||
+            (item.content && item.content.toLowerCase().includes(q))
+        );
+
+        this.render();
     }
 
     showLoading() {
