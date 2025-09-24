@@ -53,15 +53,7 @@ body {
  */
 
 /* Drag & Drop Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Stack drop zones vertically
- * - Larger touch targets
- * - Full-width items
- *
- * Tablet (768px - 1023px):
- * - 2x2 grid for drop zones
- * - Maintain aspect ratio
- *
+
  * Desktop (≥ 1024px):
  * - Side-by-side layout
  * - Hover effects
@@ -69,11 +61,7 @@ body {
  */
 
 /* Blog List Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Single column layout
- * - Stack all elements
- * - Compact view
- * 
+
  * Tablet (768px - 1023px):
  * - 2 column grid
  * - Responsive images
@@ -129,11 +117,7 @@ hr {
   border: 1px solid var(--secondary-color);
 }
 
-/* ======================
-   Base (Mobile First)
-   ====================== */
-
-/* Drag and Drop Section */
+/* === Base (Mobile First) === */
 
 #drag-section {
   width: 80%;
@@ -201,9 +185,8 @@ hr {
 
 #list-section {
   width: 90%;
-  margin: 0 auto;
+  margin: 40px auto;
   border-radius: 5px;
-  margin-top: 20px;
 }
 
 /* Blog Section */
@@ -277,10 +260,33 @@ input {
   margin-bottom: 20px;
 }
 
-/* === Tablet (768px - 1023px)=== */
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) {
+  /* Drag and Drop Section */
+
+  .drop-zones {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .drop-zone {
+    width: 48%;
+  }
+
+  /* Blog Section */
   .blog-list-content {
-    grid-template-columns: 1fr 1fr; /* 2-column grid */
+    grid-template-columns: 1fr 1fr;
+  }
+
+  article {
+    display: flex;
+  }
+
+  .blog-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
 
   .blog-item {
@@ -294,12 +300,34 @@ input {
   }
 
   .blog-meta .blog-reading-time {
-    display: none; /* hide certain metadata */
+    display: none;
+  }
+
+  .blog-controls {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .blog-tags {
+    width: fit-content;
+  }
+
+  select,
+  input {
+    width: 100%;
   }
 }
 
 /* === Desktop (≥ 1024px) === */
 @media (min-width: 1024px) {
+  /* Drag and Drop Section */
+  #drag-section {
+    width: 50%;
+  }
+
+  /* Blog Section */
+
   .blog-list-content {
     grid-template-columns: 1fr 1fr 1fr; /* 3-column grid */
   }
