@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { DragDrop } from "./dragDrop.js";
 import { BlogList } from "./BlogList.js";
 
@@ -19,4 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const blogList = new BlogList(blogListContainer);
     blogList.init();
   }
+=======
+import { Navigation } from "./navigation.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const navigation = new Navigation();
+  navigation.init(); // <-- Call init to activate all features
+>>>>>>> feature/navigation
 });
