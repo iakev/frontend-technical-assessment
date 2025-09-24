@@ -1,1 +1,23 @@
-// Your implementation code will go here
+import { DragDrop } from "./dragDrop.js";
+import { BlogList } from "./BlogList.js";
+import { Navigation } from "./navigation.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Initialize Navigation
+  const navigation = new Navigation();
+  navigation.init();
+
+  // Initialize Drag & Drop
+  const dragDropContainer = document.querySelector(".drag-drop-container");
+  if (dragDropContainer) {
+    const dragDrop = new DragDrop();
+    dragDrop.init();
+  }
+
+  // Initialize Blog List
+  const blogListContainer = document.querySelector(".blog-list-container");
+  if (blogListContainer) {
+    const blogList = new BlogList(blogListContainer);
+    blogList.init();
+  }
+});

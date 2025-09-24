@@ -1,138 +1,534 @@
-/* Base Variables */
+/* Base styles */
 :root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --accent-color: #e74c3c;
-    --text-color: #333333;
-    --border-color: #dddddd;
-    --spacing: 16px;
-    
-    /* Breakpoint Variables */
-    --mobile: 480px;
-    --tablet: 768px;
-    --desktop: 1024px;
-    --large-desktop: 1200px;
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --success-color: #27ae60;
+  --warning-color: #f39c12;
+  --light-gray: #ecf0f1;
+  --dark-gray: #7f8c8d;
+  --white: #ffffff;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Basic Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: system-ui, sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--primary-color);
+  background-color: #f8f9fa;
 }
 
-/* Base Styles */
-.container {
+/* Navigation Styles */
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: var(--white);
+  box-shadow: var(--shadow);
+  z-index: 99999;
+  background-color: rgba(0, 0, 255, 0.349);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 70px;
+  /* gap: 2rem; */
+}
+
+.nav-brand h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: white;
+  font-weight: 600;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  position: relative;
+  outline: none;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background-color: var(--light-gray);
+  color: var(--secondary-color);
+}
+
+.nav-link.active {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
+}
+
+/* Mobile Toggle Button */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  width: 30px;
+  height: 25px;
+  justify-content: space-between;
+}
+
+.nav-toggle span {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  transition: var(--transition);
+  border-radius: 2px;
+}
+
+.nav-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Main Content */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 20px;
+}
+
+.content-section {
+  margin-bottom: 4rem;
+  padding: 2rem;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.content-section h2 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  color: var(--primary-color);
+  font-size: 2rem;
+  font-weight: 600;
+  border-bottom: 3px solid var(--secondary-color);
+  padding-bottom: 0.5rem;
+}
+
+/* Drag & Drop Styles */
+.drag-drop-container {
+  display: grid;
+  flex-direction: column;
+  gap: 2rem;
+  min-height: 400px;
+}
+
+.draggable-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  /* background: var(--light-gray); */
+  border-radius: var(--border-radius);
+  border: 2px solid var(--light-gray);
+}
+
+.draggable-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--white);
+  border: 2px solid transparent;
+  border-radius: var(--border-radius);
+  cursor: grab;
+  transition: var(--transition);
+  user-select: none;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.draggable-item:hover {
+  border-color: var(--secondary-color);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+  transform: translateY(-2px);
+}
+
+.draggable-item:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
+.draggable-item.dragging {
+  opacity: 0.5;
+  cursor: grabbing;
+  /* transform: rotate(5deg) scale(1.05); */
+  z-index: 1000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.item-content {
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
+
+.drag-handle {
+  color: var(--dark-gray);
+  font-size: 1.2rem;
+  cursor: grab;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.drag-handle:hover {
+  background-color: var(--light-gray);
+  color: var(--secondary-color);
+}
+
+.drop-zones {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.drop-zone {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px dashed var(--dark-gray);
+  border-radius: var(--border-radius);
+  background: rgba(236, 240, 241, 0.5);
+  transition: var(--transition);
+  min-height: 180px;
+  position: relative;
+
+  padding: 1rem;
+}
+
+.drop-zone:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
+.drop-zone.drag-over {
+  border-color: var(--secondary-color);
+  background-color: rgba(52, 152, 219, 0.1);
+  border-style: solid;
+  transform: scale(1.02);
+}
+
+.drop-zone-label {
+  font-weight: 500;
+  color: var(--dark-gray);
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.drop-zone.drag-over .drop-zone-label {
+  color: var(--secondary-color);
+}
+
+.dropped-item {
+  animation: dropIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes dropIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Blog List Styles */
+.blog-list-container {
+  max-width: 100%;
+}
+
+.blog-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.sort-select,
+.filter-select,
+.search-input {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--light-gray);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: var(--transition);
+  background: var(--white);
+  outline: none;
+}
+
+.sort-select:focus,
+.filter-select:focus,
+.search-input:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.search-input {
+  flex: 1;
+  min-width: 250px;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 2rem;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+.error-container {
+  padding: 1rem;
+  background: rgba(231, 76, 60, 0.1);
+  border: 1px solid var(--accent-color);
+  border-radius: var(--border-radius);
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.blog-list-content {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.blog-item {
+  display: flex;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+  border: 1px solid var(--light-gray);
+}
+
+.blog-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.blog-image {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  background: var(--light-gray);
+}
+
+.blog-content {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.blog-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  line-height: 1.4;
+}
+
+.blog-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--dark-gray);
+  flex-wrap: wrap;
+}
+
+.blog-author,
+.blog-date,
+.blog-reading-time {
+  font-weight: 500;
+}
+
+.blog-excerpt {
+  margin: 0;
+  color: var(--primary-color);
+  line-height: 1.6;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.blog-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.tag {
+  background: var(--secondary-color);
+  color: var(--white);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem;
+  color: var(--dark-gray);
+  font-size: 1.1rem;
+  background: var(--light-gray);
+  border-radius: var(--border-radius);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 255, 0.349);
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+  }
+
+  .nav-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-link {
+    padding: 1rem;
+    border-radius: 0;
+    border-bottom: 1px solid var(--light-gray);
+  }
+
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  .drag-drop-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .blog-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    min-width: 100%;
+  }
+
+  .blog-item {
+    flex-direction: column;
+  }
+
+  .blog-image {
     width: 100%;
-    max-width: var(--large-desktop);
-    margin: 0 auto;
-    padding: 0 var(--spacing);
+    height: 200px;
+  }
+
+  .content-section {
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  main {
+    padding: 1rem;
+  }
 }
 
-/* Navigation Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Stack navigation items vertically
- * - Show hamburger menu
- * - Hide nav-list by default
- * - Add slide-in animation for menu
- *
- * Tablet (768px - 1023px):
- * - Show navigation items in a row
- * - Remove hamburger menu
- * - Adjust padding and spacing
- *
- * Desktop (≥ 1024px):
- * - Enhanced hover states
- * - Sticky navigation
- */
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 0 1rem;
+  }
 
-/* Drag & Drop Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Stack drop zones vertically
- * - Larger touch targets
- * - Full-width items
- *
- * Tablet (768px - 1023px):
- * - 2x2 grid for drop zones
- * - Maintain aspect ratio
- *
- * Desktop (≥ 1024px):
- * - Side-by-side layout
- * - Hover effects
- * - Drag previews
- */
+  .nav-brand h1 {
+    font-size: 1.25rem;
+  }
 
-/* Blog List Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Single column layout
- * - Stack all elements
- * - Compact view
- * 
- * Tablet (768px - 1023px):
- * - 2 column grid
- * - Responsive images
- * - Show/hide certain metadata
- *
- * Desktop (≥ 1024px):
- * - 3 column grid
- * - Hover states
- * - Enhanced animations
- */
+  .content-section h2 {
+    font-size: 1.5rem;
+  }
 
-/* Content Sections - Responsive Requirements:
- * Mobile (< 480px):
- * - Full-width sections
- * - Increased text size
- * - Stack all content
- *
- * Tablet (768px - 1023px):
- * - Balanced padding
- * - 2-column where appropriate
- *
- * Desktop (≥ 1024px):
- * - Max-width container
- * - Enhanced spacing
- */
+  .blog-content {
+    padding: 1rem;
+  }
+}
 
-/* TODO: Implement Components */
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
-/* Navigation
-.nav {}
-.nav-list {}
-.nav-link {}
-.nav-toggle {}
-*/
+/* High contrast mode support */
 
-/* Drag & Drop
-.drag-drop-container {}
-.draggable-list {}
-.draggable-item {}
-.drag-handle {}
-.drop-zones {}
-.drop-zone {}
-*/
-
-/* Blog List
-.blog-list-container {}
-.blog-list-viewport {}
-.blog-list-content {}
-.blog-item {}
-.blog-title {}
-.blog-card {}
-.blog-card-image {}
-.blog-card-content {}
-.blog-card-meta {}
-*/
-
-/* Utility Classes
-.loading {}
-.error {}
-.active {}
-.dragging {}
-*/
+/* Focus visible for better keyboard navigation */
+.draggable-item:focus-visible,
+.drop-zone:focus-visible,
+.nav-link:focus-visible {
+  outline: 3px solid var(--secondary-color);
+  outline-offset: 2px;
+}

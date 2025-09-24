@@ -1,18 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frontend Assessment</title>
     <link rel="stylesheet" href="src/css/styles.css">
 </head>
+
 <body>
     <header>
-        <!-- Implement navigation here -->
+        <nav class="main-nav" role="navigation" aria-label="Main navigation">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <h1>Frontend Assessment</h1>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="#drag-section" class="nav-link" tabindex="0" role="menuitem"
+                        aria-label="Navigate to Drag and Drop section">Drag & Drop</a>
+                    <a href="#list-section" class="nav-link" tabindex="0" role="menuitem"
+                        aria-label="Navigate to Blog List section">Blog List</a>
+                </div>
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
     </header>
+    <br> <br> <br>
     <main>
-        <!-- Implement your solution here -->
+        <section id="drag-section" class="content-section">
+            <h2>Drag & Drop Demo</h2>
+            <div class="drag-drop-container">
+                <div class="draggable-list">
+                    <div class="draggable-item" draggable="true" tabindex="0" role="button"
+                        aria-label="Draggable Item 1">
+                        <div class="item-content">Item 1</div>
+                        <span class="drag-handle" aria-hidden="true">⋮⋮</span>
+                    </div>
+                    <div class="draggable-item" draggable="true" tabindex="0" role="button"
+                        aria-label="Draggable Item 2">
+                        <div class="item-content">Item 2</div>
+                        <span class="drag-handle" aria-hidden="true">⋮⋮</span>
+                    </div>
+                    <div class="draggable-item" draggable="true" tabindex="0" role="button"
+                        aria-label="Draggable Item 3">
+                        <div class="item-content">Item 3</div>
+                        <span class="drag-handle" aria-hidden="true">⋮⋮</span>
+                    </div>
+                </div>
+                <div class="drop-zones">
+                    <div class="drop-zone" role="region" aria-label="Drop zone 1" tabindex="0">
+                        <div class="drop-zone-label">Drop Here</div>
+                    </div>
+                    <div class="drop-zone" role="region" aria-label="Drop zone 2" tabindex="0">
+                        <div class="drop-zone-label">Drop Here</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="list-section" class="content-section">
+            <h2>Blog List Demo</h2>
+            <div class="blog-list-container">
+                <div class="blog-controls">
+                    <select class="sort-select" aria-label="Sort blogs">
+                        <option value="">Sort by...</option>
+                        <option value="date">Date</option>
+                        <option value="reading_time">Reading Time</option>
+                        <option value="category">Category</option>
+                    </select>
+                    <select class="filter-select" aria-label="Filter blogs by category">
+                        <option value="">Filter by...</option>
+                        <option value="Gadgets">Gadgets</option>
+                        <option value="Startups">Startups</option>
+                        <option value="Writing">Writing</option>
+                    </select>
+                    <input type="search" class="search-input" placeholder="Search blogs..."
+                        aria-label="Search blogs by title">
+                </div>
+                <div class="loading-indicator hidden" role="status" aria-live="polite">Loading blogs...</div>
+                <div class="error-container hidden" role="alert" aria-live="assertive"></div>
+                <div class="blog-list-content" role="main" aria-label="Blog posts">
+                    <!-- Blogs will be rendered here -->
+                </div>
+            </div>
+        </section>
     </main>
+
     <script type="module" src="src/js/main.js"></script>
 </body>
+
 </html>
