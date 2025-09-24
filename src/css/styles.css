@@ -27,6 +27,140 @@ body {
     color: var(--text-color);
 }
 
+.content-section {
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 80px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.drag-drop-container,
+.draggable-list,
+.draggable-item {
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    padding: 25px;
+}
+
+.draggable-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.draggable-item {
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.drop-zones {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.drop-zone {
+    border: 2px dashed #dddddd;
+    border-radius: 5px;
+    width: 50%;
+    padding: 80px;
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+
+.drop-zone-label {
+    text-align: center;
+    margin-right: 20px;
+}
+
+.blog-list-container {
+    border: 2px solid #dddddd;
+    border-radius: 4px;
+}
+
+.blog-controls {
+    background-color: #f8faf9;
+    padding: 20px;
+    border-bottom: 1px solid #e7e7e7;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.blog-controls select,
+.blog-controls input {
+    background-color: white;
+    border: 1px solid #e7e7e7;
+    width: 150px;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.blog-controls select option:checked {
+  background-color: #f0f0f0;
+  color: #1600d8;
+}
+
+.hidden {
+    display: none;
+}
+
+.blog-list-content {
+    width: 98%;
+    margin: 0 auto;
+}
+
+.blog-item {
+    border: 2px solid #e7e7e7;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    display: flex;
+    gap: 10px;
+}
+
+.blog-item img {
+    width: 250px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.blog-title {
+    line-height: 1.5em;
+}
+
+.blog-meta,
+.blog-tags {
+    display: flex;
+    gap: 10px;
+}
+
+.blog-excerpt {
+    font-weight: 400;
+}
+
+.blog-tags span {
+    color: white;
+    background-color: #3993d0;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+.no-results {
+    text-align: center;
+    color: red;
+    font-weight: 500;
+}
+
 /* Base Styles */
 .container {
     width: 100%;
@@ -34,105 +168,3 @@ body {
     margin: 0 auto;
     padding: 0 var(--spacing);
 }
-
-/* Navigation Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Stack navigation items vertically
- * - Show hamburger menu
- * - Hide nav-list by default
- * - Add slide-in animation for menu
- *
- * Tablet (768px - 1023px):
- * - Show navigation items in a row
- * - Remove hamburger menu
- * - Adjust padding and spacing
- *
- * Desktop (≥ 1024px):
- * - Enhanced hover states
- * - Sticky navigation
- */
-
-/* Drag & Drop Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Stack drop zones vertically
- * - Larger touch targets
- * - Full-width items
- *
- * Tablet (768px - 1023px):
- * - 2x2 grid for drop zones
- * - Maintain aspect ratio
- *
- * Desktop (≥ 1024px):
- * - Side-by-side layout
- * - Hover effects
- * - Drag previews
- */
-
-/* Blog List Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Single column layout
- * - Stack all elements
- * - Compact view
- * 
- * Tablet (768px - 1023px):
- * - 2 column grid
- * - Responsive images
- * - Show/hide certain metadata
- *
- * Desktop (≥ 1024px):
- * - 3 column grid
- * - Hover states
- * - Enhanced animations
- */
-
-/* Content Sections - Responsive Requirements:
- * Mobile (< 480px):
- * - Full-width sections
- * - Increased text size
- * - Stack all content
- *
- * Tablet (768px - 1023px):
- * - Balanced padding
- * - 2-column where appropriate
- *
- * Desktop (≥ 1024px):
- * - Max-width container
- * - Enhanced spacing
- */
-
-/* TODO: Implement Components */
-
-/* Navigation
-.nav {}
-.nav-list {}
-.nav-link {}
-.nav-toggle {}
-*/
-
-/* Drag & Drop
-.drag-drop-container {}
-.draggable-list {}
-.draggable-item {}
-.drag-handle {}
-.drop-zones {}
-.drop-zone {}
-*/
-
-/* Blog List
-.blog-list-container {}
-.blog-list-viewport {}
-.blog-list-content {}
-.blog-item {}
-.blog-title {}
-.blog-card {}
-.blog-card-image {}
-.blog-card-content {}
-.blog-card-meta {}
-*/
-
-/* Utility Classes
-.loading {}
-.error {}
-.active {}
-.dragging {}
-*/
