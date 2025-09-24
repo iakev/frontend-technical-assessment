@@ -7,12 +7,39 @@
     <link rel="stylesheet" href="src/css/styles.css">
 </head>
 <body>
-    <header>
-        <!-- Implement navigation here -->
-    </header>
-    <main>
-        <!-- Implement your solution here -->
-    </main>
-    <script type="module" src="src/js/main.js"></script>
+<header>
+    <nav class="nav" role="navigation" aria-label="Main Navigation">
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-list">
+            <span class="hamburger"></span>
+        </button>
+        <ul id="nav-list" class="nav-list" role="menu">
+            <li role="none"><a href="#navigation-section" class="nav-link" role="menuitem" tabindex="0">Navigation</a></li>
+            <li role="none"><a href="#drag-section" class="nav-link" role="menuitem" tabindex="0">Drag & Drop</a></li>
+            <li role="none"><a href="#list-section" class="nav-link" role="menuitem" tabindex="0">Blog List</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <section id="navigation-section" class="content-section" tabindex="-1">
+
+        <h2>Navigation Component</h2>
+            <div class="nav-group" >
+                <p>This section demonstrates the sticky navigation with the Intersection Observer.</p>
+        <div class="navigation-demo-box">
+            <p>Scroll to see the navigation update and highlight the current section.</p>
+        </div></div>
+    </section>
+
+    <section id="drag-section" class="content-section" tabindex="-1">
+        <h2>Drag & Drop Demo</h2>
+        <div class="drag-drop-container"></div>
+    </section>
+
+    <section id="list-section" class="content-section" tabindex="-1">
+        <h2>Blog List Demo</h2>
+        <div class="blog-list-container"></div>
+    </section>
+</main>
+<script type="module" src="src/js/main.js"></script>
 </body>
 </html>

@@ -27,6 +27,7 @@ body {
     color: var(--text-color);
 }
 
+<<<<<<< HEAD
 /* Base Styles */
 .container {
     width: 100%;
@@ -136,3 +137,185 @@ body {
 .active {}
 .dragging {}
 */
+=======
+/* --- CRITICAL FIX: Ensures sections are tall enough and centers content --- */
+.content-section {
+    min-height: 100vh; /* Make each section at least the height of the viewport */
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center; /* FIX: Center text elements inside the main section */
+}
+/* ------------------------------------------------------------------------- */
+
+
+/* ---------------------------------------------------- */
+/* --- Navigation Component Styles (Task 1) --- */
+/* ---------------------------------------------------- */
+
+/* Global Scroll Behavior for Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* CRITICAL: Adds padding to prevent content from hiding behind the sticky header */
+body {
+    padding-top: 60px; /* Must match the header height */
+}
+
+/* Fulfills: Sticky Navigation */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    height: 60px; /* Define fixed height */
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    /* FIX: Center the navigation links block on desktop to match the visual requirement */
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+/* Fulfills: Dynamic Button Highlighting */
+.nav-link:hover,
+.nav-link.active {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+/* Fulfills: Accessibility / Focus Management */
+.nav-link:focus-visible {
+    outline: 2px solid yellow;
+    outline-offset: 2px;
+}
+
+/* Mobile Toggle (Hamburger Icon) */
+.nav-toggle {
+    display: none; /* Hidden on desktop */
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 100;
+}
+
+.hamburger {
+    display: block;
+    width: 20px;
+    height: 3px;
+    background-color: #fff;
+    position: relative;
+}
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 3px;
+    background-color: #fff;
+    position: absolute;
+    transition: transform 0.3s ease;
+}
+.hamburger::before {
+    top: -6px;
+}
+.hamburger::after {
+    top: 6px;
+}
+
+/* Fulfills: Mobile Responsive Styles */
+@media (max-width: 768px) {
+    /* Ensure the toggle is visible on mobile and list is separate */
+    header nav {
+        justify-content: space-between;
+    }
+
+    .nav-toggle {
+        display: block; /* Show toggle on mobile */
+    }
+
+    /* Hide the list by default */
+    .nav-list {
+        display: none;
+        position: absolute;
+        top: 60px; /* Below the fixed header */
+        left: 0;
+        width: 100%;
+        background-color: var(--primary-color);
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 1rem;
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Show when toggled by JavaScript */
+    .nav-list.is-open {
+        display: flex;
+    }
+
+    .nav-list li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-list li a {
+        display: block;
+        padding: 1rem;
+        margin: 0.25rem 0;
+    }
+}
+
+/* --- Visual Styling for Navigation Demo Section --- */
+.navigation-demo-box {
+    /* Subtle light border/shadow to match the image */
+    border: 1px solid #dcdcdc;
+    background-color: #f7f7f7;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    align-items: center;
+    justify-content: center;
+
+}
+
+.navigation-demo-box p {
+    margin: 0;
+    color: #555;
+    font-size: 0.95rem;
+    text-align: left;
+
+}
+.nav-group{
+    justify-content: center;
+align-items: center}
+>>>>>>> feature/navigation
