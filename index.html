@@ -7,12 +7,84 @@
     <link rel="stylesheet" href="src/css/styles.css">
 </head>
 <body>
-    <header>
-        <!-- Implement navigation here -->
-    </header>
-    <main>
-        <!-- Implement your solution here -->
-    </main>
-    <script type="module" src="src/js/main.js"></script>
+<header>
+    <nav class="nav" role="navigation" aria-label="Main Navigation">
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-list">
+            <span class="hamburger"></span>
+        </button>
+        <ul id="nav-list" class="nav-list" role="menu">
+            <li role="none"><a href="#navigation-section" class="nav-link" role="menuitem" tabindex="0">Navigation</a></li>
+            <li role="none"><a href="#drag-section" class="nav-link" role="menuitem" tabindex="0">Drag & Drop</a></li>
+            <li role="none"><a href="#list-section" class="nav-link" role="menuitem" tabindex="0">Blog List</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+
+<main>
+    <section id="navigation-section" class="content-section" tabindex="-1">
+
+        <h2>Navigation Component</h2>
+        <div class="nav-group" >
+            <p>This section demonstrates the sticky navigation with the Intersection Observer.</p>
+            <div class="navigation-demo-box">
+                <p>Scroll to see the navigation update and highlight the current section.</p>
+            </div></div>
+    </section>
+    <section id="drag-section" class="content-section">
+        <h2>Drag & Drop Demo</h2>
+        <div class="drag-drop-container">
+            <div class="draggable-list">
+                <div class="draggable-item" draggable="true">
+                    <div class="item-content">Item 1</div>
+                    <span class="drag-handle">⋮</span>
+                </div>
+                <div class="draggable-item" draggable="true">
+                    <div class="item-content">Item 2</div>
+                    <span class="drag-handle">⋮</span>
+                </div>
+                <div class="draggable-item" draggable="true">
+                    <div class="item-content">Item 3</div>
+                    <span class="drag-handle">⋮</span>
+                </div>
+            </div>
+            <div class="drop-zones">
+                <div class="drop-zone">
+                    <div class="drop-zone-label">Drop Here</div>
+                </div>
+                <div class="drop-zone">
+                    <div class="drop-zone-label">Drop Here</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="list-section" class="content-section">
+        <h2>Blog List Demo</h2>
+        <div class="blog-list-container">
+            <div class="blog-controls">
+                <select class="sort-select">
+                    <option value="">Sort by...</option>
+                    <option value="date">Date</option>
+                    <option value="reading_time">Reading Time</option>
+                    <option value="category">Category</option>
+                </select>
+                <select class="filter-select">
+                    <option value="">Filter by...</option>
+                    <option value="Gadgets">Gadgets</option>
+                    <option value="Startups">Startups</option>
+                    <option value="Writing">Writing</option>
+                </select>
+                <input type="search" class="search-input" placeholder="Search blogs...">
+            </div>
+            <div class="loading-indicator hidden">Loading blogs...</div>
+            <div class="error-container hidden"></div>
+            <div class="blog-list-content">
+            </div>
+        </div>
+    </section>
+</main>
+<script type="module" src="src/js/main.js"></script>
 </body>
 </html>

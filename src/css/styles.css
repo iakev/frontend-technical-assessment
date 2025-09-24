@@ -1,4 +1,4 @@
-/* Base Variables */
+/* Base Variables (Combined) */
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
@@ -6,15 +6,10 @@
     --text-color: #333333;
     --border-color: #dddddd;
     --spacing: 16px;
-    
-    /* Breakpoint Variables */
-    --mobile: 480px;
-    --tablet: 768px;
-    --desktop: 1024px;
-    --large-desktop: 1200px;
+    --background-color: #f8f9fa;
 }
 
-/* Basic Reset */
+/* Basic Reset & Body Setup (Combined) */
 * {
     margin: 0;
     padding: 0;
@@ -22,117 +17,389 @@
 }
 
 body {
-    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
+    background-color: var(--background-color);
+    /* CRITICAL: Adds padding to prevent content from hiding behind the sticky header */
+    padding-top: 60px;
 }
 
-/* Base Styles */
-.container {
-    width: 100%;
-    max-width: var(--large-desktop);
+/* Global Scroll Behavior for Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ---------------------------------------------------- */
+/* --- NAVIGATION COMPONENT STYLES (Task 1) --- */
+/* ---------------------------------------------------- */
+
+/* CRITICAL FIX: Ensures sections are tall enough and centers content */
+.content-section {
+    min-height: 100vh; /* Make each section at least the height of the viewport */
+    padding: 2rem;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 0 var(--spacing);
+    text-align: center; /* FIX: Center text elements inside the main section */
+    margin-bottom: 20rem; /* Keeps space between sections from Drag/Drop side */
 }
 
-/* Navigation Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Stack navigation items vertically
- * - Show hamburger menu
- * - Hide nav-list by default
- * - Add slide-in animation for menu
- *
- * Tablet (768px - 1023px):
- * - Show navigation items in a row
- * - Remove hamburger menu
- * - Adjust padding and spacing
- *
- * Desktop (≥ 1024px):
- * - Enhanced hover states
- * - Sticky navigation
- */
+.content-section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
 
-/* Drag & Drop Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Stack drop zones vertically
- * - Larger touch targets
- * - Full-width items
- *
- * Tablet (768px - 1023px):
- * - 2x2 grid for drop zones
- * - Maintain aspect ratio
- *
- * Desktop (≥ 1024px):
- * - Side-by-side layout
- * - Hover effects
- * - Drag previews
- */
+/* Sticky Navigation Header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
 
-/* Blog List Component - Responsive Requirements:
- * Mobile (< 480px):
- * - Single column layout
- * - Stack all elements
- * - Compact view
- * 
- * Tablet (768px - 1023px):
- * - 2 column grid
- * - Responsive images
- * - Show/hide certain metadata
- *
- * Desktop (≥ 1024px):
- * - 3 column grid
- * - Hover states
- * - Enhanced animations
- */
+header nav {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the navigation links block */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-/* Content Sections - Responsive Requirements:
- * Mobile (< 480px):
- * - Full-width sections
- * - Increased text size
- * - Stack all content
- *
- * Tablet (768px - 1023px):
- * - Balanced padding
- * - 2-column where appropriate
- *
- * Desktop (≥ 1024px):
- * - Max-width container
- * - Enhanced spacing
- */
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
 
-/* TODO: Implement Components */
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
 
-/* Navigation
-.nav {}
-.nav-list {}
-.nav-link {}
-.nav-toggle {}
-*/
+/* Dynamic Button Highlighting */
+.nav-link:hover,
+.nav-link.active {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
 
-/* Drag & Drop
-.drag-drop-container {}
-.draggable-list {}
-.draggable-item {}
-.drag-handle {}
-.drop-zones {}
-.drop-zone {}
-*/
+/* Accessibility / Focus Management */
+.nav-link:focus-visible {
+    outline: 2px solid yellow;
+    outline-offset: 2px;
+}
 
-/* Blog List
-.blog-list-container {}
-.blog-list-viewport {}
-.blog-list-content {}
-.blog-item {}
-.blog-title {}
-.blog-card {}
-.blog-card-image {}
-.blog-card-content {}
-.blog-card-meta {}
-*/
+/* Mobile Toggle (Hamburger Icon) */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 100;
+}
 
-/* Utility Classes
-.loading {}
-.error {}
-.active {}
-.dragging {}
-*/
+.hamburger {
+    display: block;
+    width: 20px;
+    height: 3px;
+    background-color: #fff;
+    position: relative;
+}
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 3px;
+    background-color: #fff;
+    position: absolute;
+    transition: transform 0.3s ease;
+}
+.hamburger::before {
+    top: -6px;
+}
+.hamburger::after {
+    top: 6px;
+}
+
+/* Mobile Responsive Styles (Navigation) */
+@media (max-width: 768px) {
+    header nav {
+        justify-content: space-between;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-list {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: var(--primary-color);
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 1rem;
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-list.is-open {
+        display: flex;
+    }
+
+    .nav-list li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-list li a {
+        display: block;
+        padding: 1rem;
+        margin: 0.25rem 0;
+    }
+}
+
+/* Visual Styling for Navigation Demo Section */
+.navigation-demo-box {
+    border: 1px solid #dcdcdc;
+    background-color: #f7f7f7;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    text-align: left;
+}
+
+.navigation-demo-box p {
+    margin: 0;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+/* ---------------------------------------------------- */
+/* --- DRAG & DROP STYLES (Task 1) --- */
+/* ---------------------------------------------------- */
+
+.drag-drop-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: nowrap;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.draggable-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 200px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #f4f4f4;
+}
+
+.draggable-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: grab;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.draggable-item:active {
+    cursor: grabbing;
+}
+
+.draggable-item.dragging {
+    opacity: 0.6;
+    transform: scale(1.05);
+}
+
+.drag-handle {
+    cursor: move;
+    font-size: 1.5rem;
+    color: #888;
+}
+
+.drop-zones {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    flex-grow: 1;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.drop-zone {
+    flex: 1;
+    min-width: 50px;
+    min-height: 150px;
+    border: 3px dashed var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    color: #888;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.drop-zone.active {
+    background-color: #e8f5e9;
+    border-color: #4caf50;
+}
+
+/* ---------------------------------------------------- */
+/* --- BLOG LIST STYLES (Task 1) --- */
+/* ---------------------------------------------------- */
+
+.blog-list-container {
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.blog-controls {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.blog-controls select,
+.blog-controls input {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.blog-list-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.blog-item {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    border: 1px solid #ddd;
+}
+
+.blog-item:hover {
+    transform: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.blog-image {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: 8px 0 0 8px;
+    margin: 1.5rem 0 1.5rem 1.5rem;
+}
+
+.blog-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.blog-title {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.blog-meta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.blog-excerpt {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.blog-tags {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.tag {
+    background-color: var(--secondary-color);
+    color: #fff;
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.loading-indicator, .error-container {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Media Query for Mobile Responsiveness (Blog List) */
+@media (max-width: 768px) {
+    .blog-item {
+        flex-direction: column;
+    }
+
+    .blog-image {
+        width: 100%;
+        height: 180px;
+        margin: 0;
+        border-radius: 8px 8px 0 0;
+    }
+}
