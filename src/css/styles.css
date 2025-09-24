@@ -1,4 +1,4 @@
-/* Base styles */
+/* Base Variables */
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
@@ -92,6 +92,14 @@ header {
 .nav-description {
     text-align: center;
     width: 100%;
+}
+
+.nav-scroller {
+    border: 1px solid #ddd;
+    margin: 0 auto;
+    width: 40%;
+    padding: 0px 20px;
+    border-radius: 4px;
 }
 
 .nav-scroller {
