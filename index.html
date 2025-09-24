@@ -10,18 +10,40 @@
 
 <body>
     <header>
-        <nav class="nav">
-            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-list">
-                <span class="hamburger"></span>
-            </button>
-            <ul id="nav-list" class="nav-list">
-                <li><a href="#nav-section" class="nav-link">Navigation</a></li>
-                <li><a href="#drag-section" class="nav-link">Drag & Drop</a></li>
-                <li><a href="#list-section" class="nav-link">Blog List</a></li>
-            </ul>
-        </nav>
+        <section id="nav-section">
+            <nav class="nav">
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"
+                    aria-controls="nav-list">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+                <ul id="nav-list" class="nav-list">
+                    <li><a href="#nav-section" class="nav-link">Navigation</a></li>
+                    <li><a href="#drag-section" class="nav-link">Drag & Drop</a></li>
+                    <li><a href="#list-section" class="nav-link">Blog List</a></li>
+                </ul>
+            </nav>
+        </section>
     </header>
     <main>
+        <section id="nav-section" class="page-section">
+            <h2 class="nav-title">Navigation Component</h2>
+            <p class="nav-description">This section demonstrates the sticky navigation with IntersectionObserver</p>
+            <div class="nav-scroller">
+                <p>Scroll to see the navigation update and highlight the current section.</p>
+            </div>
+        </section>
+
+        <section id="drag-section" class="page-section">
+            <h2>Drag & Drop Section</h2>
+            <p>Content here...</p>
+        </section>
+
+        <section id="list-section" class="page-section">
+            <h2>Blog List Section</h2>
+            <p>Content here...</p>
+        </section>
     </main>
     <script type="module" src="src/js/main.js"></script>
 </body>

@@ -13,72 +13,70 @@ window.navState = {
  */
 export class Navigation {
     constructor() {
-        // Direct queries without checks
-        this.sections = document.querySelectorAll('section');
-        this.links = document.querySelectorAll('a');
-        
-        // Problematic event binding
-        window.addEventListener('scroll', () => {
-            // Direct style manipulation on scroll
-            this.sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                if (rect.top >= 0 && rect.top <= window.innerHeight) {
-                    section.style.opacity = '1';
-                    window.navState.currentSection = section.id;
-                } else {
-                    section.style.opacity = '0.5';
-                }
-            });
-        });
+        this.sections = document.querySelectorAll("section");
+        this.links = document.querySelectorAll(".nav-link");
+        this.navToggle = document.querySelector(".nav-toggle");
+        this.navList = document.querySelector(".nav-list");
 
-        // Memory leak - no cleanup
-        setInterval(() => {
-            this.checkScroll();
-        }, 100);
+        this.observer = null;
 
         this.init();
     }
 
     init() {
-        // Problematic intersection observer setup
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                // Direct style manipulation
-                entry.target.style.transform = entry.isIntersecting 
-                    ? 'scale(1.05)' 
-                    : 'scale(1)';
-            });
-        });
-
-        // Never disconnected
-        this.sections.forEach(section => observer.observe(section));
-
-        // Click handlers with timing issues
-        this.links.forEach(link => {
-            link.onclick = (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').slice(1);
-                const target = document.getElementById(targetId);
-                
-                // Problematic scroll handling
-                window.scrollTo(0, target.offsetTop);
-                window.navState.isScrolling = true;
-                
-                // Timing issue
-                setTimeout(() => {
-                    window.navState.isScrolling = false;
-                }, 1000);
-            };
-        });
-    }
-
-    checkScroll() {
-        // CPU intensive operation on interval
-        if (!window.navState.isScrolling) {
-            this.sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                section.style.transform = `translateY(${Math.sin(rect.top) * 2}px)`;
+        // Mobile toggle
+        if (this.navToggle) {
+            this.navToggle.addEventListener("click", () => {
+                this.navList.classList.toggle("show");
             });
         }
+
+        // Smooth scroll on click
+        this.links.forEach(link => {
+            link.addEventListener("click", e => {
+                e.preventDefault();
+                const targetId = link.getAttribute("href").slice(1);
+                const target = document.getElementById(targetId);
+
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 60, // adjust for sticky header
+                        behavior: "smooth"
+                    });
+                }
+
+                // Close mobile menu
+                this.navList.classList.remove("show");
+            });
+        });
+
+        // IntersectionObserver for active link
+        this.observer = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        this.links.forEach(link =>
+                            link.classList.toggle(
+                                "active",
+                                link.getAttribute("href").slice(1) === entry.target.id
+                            )
+                        );
+                    }
+                });
+            },
+            { threshold: 0.6 } // section 60% visible = active
+        );
+
+        this.sections.forEach(section => this.observer.observe(section));
+    }
+
+    // Call when tearing down to avoid leaks
+    destroy() {
+        if (this.observer) {
+            this.observer.disconnect();
+        }
+        this.links.forEach(link => {
+            link.replaceWith(link.cloneNode(true)); // remove listeners
+        });
     }
 }
