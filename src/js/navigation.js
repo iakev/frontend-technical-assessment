@@ -1,84 +1,99 @@
-// Global state - bad practice that will conflict with proper implementation
-window.navState = {
-    currentSection: null,
-    isScrolling: false
-};
-
 /**
- * Navigation implementation with several issues:
- * - Global state usage
- * - No cleanup
- * - Direct DOM manipulation
- * - Memory leaks
+ * Navigation Component
+ * Implements sticky header, smooth scrolling, dynamic highlighting (Intersection Observer),
+ * and mobile responsiveness with accessibility features.
+ * @exports Navigation
  */
 export class Navigation {
-    constructor() {
-        // Direct queries without checks
-        this.sections = document.querySelectorAll('section');
-        this.links = document.querySelectorAll('a');
-        
-        // Problematic event binding
-        window.addEventListener('scroll', () => {
-            // Direct style manipulation on scroll
-            this.sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                if (rect.top >= 0 && rect.top <= window.innerHeight) {
-                    section.style.opacity = '1';
-                    window.navState.currentSection = section.id;
-                } else {
-                    section.style.opacity = '0.5';
+    /**
+     * @param {HTMLElement} header - The main <header> element.
+     */
+    constructor(header) {
+        this.header = header;
+        this.navToggle = header.querySelector('.nav-toggle');
+        this.navList = header.querySelector('#nav-list');
+        this.navLinks = header.querySelectorAll('.nav-link');
+        // Select all sections that have an ID (the scroll targets)
+        this.sections = document.querySelectorAll('main section[id]');
+
+        this.setupMobileToggle();
+        if (this.sections.length > 0) {
+            this.setupScrollAndHighlighting();
+        }
+    }
+
+    /** Sets up mobile menu toggle and accessibility */
+    setupMobileToggle() {
+        if (this.navToggle && this.navList) {
+            this.navToggle.addEventListener('click', () => {
+                const isExpanded = this.navToggle.getAttribute('aria-expanded') === 'true';
+                this.navList.classList.toggle('is-open');
+                this.navToggle.setAttribute('aria-expanded', !isExpanded);
+            });
+
+            // Close menu when a link is clicked
+            this.navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (this.navList.classList.contains('is-open')) {
+                        this.navList.classList.remove('is-open');
+                        this.navToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+        }
+    }
+
+    /** Sets up smooth scrolling and calls the observer setup */
+    setupScrollAndHighlighting() {
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetElement = document.querySelector(link.getAttribute('href'));
+
+                if (targetElement) {
+                    // Smooth Scroll: Adjust scroll position by the height of the sticky header
+                    window.scrollTo({
+                        top: targetElement.offsetTop - this.header.offsetHeight,
+                        behavior: 'smooth'
+                    });
+
+                    // Accessibility: Return focus to the section after scroll
+                    targetElement.focus({ preventScroll: true });
                 }
             });
         });
-
-        // Memory leak - no cleanup
-        setInterval(() => {
-            this.checkScroll();
-        }, 100);
-
-        this.init();
+        this.setupIntersectionObserver();
     }
 
-    init() {
-        // Problematic intersection observer setup
+    /** Sets up the Intersection Observer for dynamic link highlighting */
+    setupIntersectionObserver() {
+        // rootMargin is CRITICAL: it creates an offset equal to the sticky header height
+        // so the section highlights when it hits the bottom edge of the header.
+        const observerOptions = {
+            root: null,
+            rootMargin: `-${this.header.offsetHeight + 1}px 0px 0px 0px`,
+            threshold: 0
+        };
+
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                // Direct style manipulation
-                entry.target.style.transform = entry.isIntersecting 
-                    ? 'scale(1.05)' 
-                    : 'scale(1)';
-            });
-        });
+            let activeId = null;
+            // Iterate in reverse to prioritize sections higher up the viewport
+            for (let i = entries.length - 1; i >= 0; i--) {
+                const entry = entries[i];
+                if (entry.isIntersecting) {
+                    activeId = `#${entry.target.id}`;
+                    break;
+                }
+            }
 
-        // Never disconnected
+            // Apply 'active' class and ARIA attributes
+            this.navLinks.forEach(link => {
+                const isActive = link.getAttribute('href') === activeId;
+                link.classList.toggle('active', isActive);
+                link.setAttribute('aria-current', isActive ? 'true' : 'false');
+            });
+        }, observerOptions);
+
         this.sections.forEach(section => observer.observe(section));
-
-        // Click handlers with timing issues
-        this.links.forEach(link => {
-            link.onclick = (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').slice(1);
-                const target = document.getElementById(targetId);
-                
-                // Problematic scroll handling
-                window.scrollTo(0, target.offsetTop);
-                window.navState.isScrolling = true;
-                
-                // Timing issue
-                setTimeout(() => {
-                    window.navState.isScrolling = false;
-                }, 1000);
-            };
-        });
-    }
-
-    checkScroll() {
-        // CPU intensive operation on interval
-        if (!window.navState.isScrolling) {
-            this.sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                section.style.transform = `translateY(${Math.sin(rect.top) * 2}px)`;
-            });
-        }
     }
 }

@@ -1,6 +1,9 @@
 import { Navigation } from './navigation.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Navigation only on this branch
-    new Navigation();
+    //  initializes Navigation by passing the required header element
+    const header = document.querySelector('header');
+    if (header) {
+        new Navigation(header);
+    }
 });
