@@ -1,6 +1,6 @@
-import { Navigation } from './navigation.js';
+import { Navigation } from "./navigation.js";
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Navigation only on this branch
-    new Navigation();
+document.addEventListener("DOMContentLoaded", () => {
+  const navigation = new Navigation();
+  navigation.init(); // <-- Call init to activate all features
 });
